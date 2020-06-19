@@ -7,9 +7,8 @@ const settings = {
   "name": "texts-app",
   "state": {
     "frontity": {
-      "url": "https://test.frontity.org",
-      "title": "Test Frontity Blog",
-      "description": "WordPress installation for Frontity development"
+      "url": "https://texts-app-rouge.vercel.app",
+      "title": "Texts app"
     }
   },
   "packages": [
@@ -23,20 +22,16 @@ const settings = {
               "/"
             ],
             [
-              "Nature",
-              "/category/nature/"
+              "Zona prohibida",
+              "/zona-prohibida"
             ],
             [
-              "Travel",
-              "/category/travel/"
+              "hidden",
+              "/category/hidden"
             ],
             [
-              "Japan",
-              "/tag/japan/"
-            ],
-            [
-              "About Us",
-              "/about-us/"
+              "Sobre mí",
+              "/sobre-mi"
             ]
           ],
           "featured": {
@@ -50,7 +45,6 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          // "api": "https://test.frontity.org/wp-json"
           "api": process.env.PACKAGES_STATE_API
         }
       }

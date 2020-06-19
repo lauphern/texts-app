@@ -5,10 +5,14 @@ import Pagination from "./pagination";
 
 const List = ({ state }) => {
   // Get the data of the current list.
-  const data = state.source.get(state.router.link);
+  // const data = state.source.get(state.router.link);
+  const data = state.source.get("/category/public/");
+
+  // debugger;
 
   return (
     <Container>
+      This is the list
       {/* If the list is a taxonomy, we render a title. */}
       {data.isTaxonomy && (
         <Header>
@@ -16,20 +20,19 @@ const List = ({ state }) => {
           <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
         </Header>
       )}
-
-      {/* If the list is for a specific author, we render a title. */}
-      {data.isAuthor && (
-        <Header>
-          Author: <b>{decode(state.source.author[data.id].name)}</b>
-        </Header>
-      )}
-
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }) => {
-        const item = state.source[type][id];
-        // Render one Item component for each one.
-        return <Item key={item.id} item={item} />;
-      })}
+      {/* TODO */}
+      helloooo
+      {/* {state.source.category[1].name} */}
+      {data.isReady ? (
+        <>
+          {data.items.map(({ type, id }) => {
+            const item = state.source[type][id];
+            // Render one Item component for each one.
+            return <Item key={item.id} item={item} />;
+          })}
+        </>
+      ) : null}
       <Pagination />
     </Container>
   );

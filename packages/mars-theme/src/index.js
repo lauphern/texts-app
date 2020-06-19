@@ -2,7 +2,7 @@ import Theme from "./components";
 import image from "@frontity/html2react/processors/image";
 import iframe from "@frontity/html2react/processors/iframe";
 
-const marsTheme = {
+export default {
   name: "@frontity/mars-theme",
   roots: {
     /**
@@ -37,6 +37,7 @@ const marsTheme = {
       closeMobileMenu: ({ state }) => {
         state.theme.isMobileMenuOpen = false;
       },
+      // TODO añadir aquí para toggleThemeMode (dark y light) y toggleLanguage (esp y eng)
     },
   },
   libraries: {
@@ -49,5 +50,3 @@ const marsTheme = {
     },
   },
 };
-
-export default marsTheme;

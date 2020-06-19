@@ -12,9 +12,12 @@ import PageError from "./page-error";
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-const Theme = ({ state }) => {
+const Theme = ({ state, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
+
+  //Get current URL
+  const url = state.router.link;
 
   return (
     <>
@@ -38,10 +41,11 @@ const Theme = ({ state }) => {
       on the type of URL we are in. */}
       <Main>
         <Switch>
+          {/* <Loading when={url == "/sobre-mi/"} /> */}
           <Loading when={data.isFetching} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />
-          <PageError when={data.isError} />
+          <PageError />
         </Switch>
       </Main>
     </>
