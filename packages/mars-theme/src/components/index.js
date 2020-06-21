@@ -12,12 +12,14 @@ import PageError from "./page-error";
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-const Theme = ({ state, libraries }) => {
+const Theme = ({ state }) => {
+
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
   //Get current URL
   const url = state.router.link;
+  
 
   return (
     <>
@@ -41,7 +43,9 @@ const Theme = ({ state, libraries }) => {
       on the type of URL we are in. */}
       <Main>
         <Switch>
+        {/* TODO (two options) */}
           {/* <Loading when={url == "/sobre-mi/"} /> */}
+          {/* https://community.frontity.org/t/how-to-create-custom-pages/435/3 */}
           <Loading when={data.isFetching} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />

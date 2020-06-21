@@ -19,7 +19,7 @@ const settings = {
           "menu": [
             [
               "Home",
-              "/"
+              "/home"
             ],
             [
               "Zona prohibida",
@@ -28,6 +28,10 @@ const settings = {
             [
               "hidden",
               "/category/hidden"
+            ],
+            [
+              "los posts publicos",
+              "/category/public"
             ],
             [
               "Sobre mí",
