@@ -9,7 +9,11 @@ const settings = {
     "frontity": {
       "url": "https://texts-app-rouge.vercel.app",
       "title": "Texts app"
-    }
+    },
+    "source": {
+      // "homepage": "/home",
+      "postsPage": "/posts-page"
+    },
   },
   "packages": [
     {
@@ -19,8 +23,12 @@ const settings = {
           "menu": [
             [
               "Home",
-              "/home"
+              "/"
             ],
+            // [
+            //   "Home2",
+            //   "/home"
+            // ],
             [
               "Zona prohibida",
               "/zona-prohibida"
@@ -29,10 +37,10 @@ const settings = {
               "hidden",
               "/category/hidden"
             ],
-            [
-              "los posts publicos",
-              "/category/public"
-            ],
+            // [
+            //   "los posts publicos",
+            //   "/category/public"
+            // ],
             [
               "Sobre mí",
               "/sobre-mi"

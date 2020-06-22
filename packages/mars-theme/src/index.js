@@ -15,8 +15,10 @@ const publicPostsHandler = {
   //TODO try to change the pattern. If I can't make it work here, maybe in redirections:
   //https://docs.frontity.org/api-reference-1/wordpress-source#libraries
   // pattern: /^$/g,
-  pattern: "/home",
+  // pattern: "/home",
+  pattern: "/",
   func: async ({ route, params, state, libraries }) => {
+    
     const { api, populate } = libraries.source;
 
     // Source code of the get method https://github.com/frontity/frontity/blob/ae5e3f9f1c1efbab865dafaf7c7ea1dfbaed8d9d/packages/wp-source/src/libraries/api.ts#L17
@@ -51,8 +53,8 @@ const publicPostsHandler = {
         force: true,
       });
 
-      // 4. We add the public posts to the state (inside the "/home/" route) and change the isArchive property to true to use the List component in this route
-      state.source.data["/home/"].isArchive = true;
+      // 4. We add the public posts to the state (inside the route) and change the isArchive property to true to use the List component in this route
+      state.source.data[route].isArchive = true;
 
       const currentPageData = state.source.data[route];
 
@@ -65,32 +67,6 @@ const publicPostsHandler = {
         404
       );
     }
-
-    // const tags = items.map((tag) => ({
-    //   ...tag,
-    //   link: `/tag/${tag.slug}`,
-    // }));
-
-    // // 3. add data to source
-    // const currentPageData = state.source.data[route];
-
-    // Object.assign(currentPageData, {
-    //   tags,
-    // });
-
-    // // 1. try with category.
-    // try {
-    //   // const category = libraries.source.handlers.find(
-    //   //   handler => handler.name == "category"
-    //   // );
-    //   // await category.func({ route, params, state, libraries });
-    // } catch (e) {
-    //   // It's not a category
-    //   // const postType = libraries.source.handlers.find(
-    //   //   handler => handler.name == "post type"
-    //   // );
-    //   // await postType.func({ link: route, params, state, libraries });
-    // }
   },
 };
 
