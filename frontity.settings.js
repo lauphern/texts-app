@@ -12,8 +12,7 @@ const settings = {
     },
     "source": {
       // "homepage": "/home",
-      "postsPage": "/posts-page",
-      "categoryBase": ""
+      // "postsPage": "/posts-page",
     },
   },
   "packages": [
@@ -35,8 +34,12 @@ const settings = {
               "/zona-prohibida"
             ],
             [
-              "hidden",
+              "hidden 1",
               "/hidden"
+            ],
+            [
+              "hidden 2",
+              "/category/hidden"
             ],
             // [
             //   "los posts publicos",
