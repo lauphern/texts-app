@@ -2,7 +2,7 @@ import React from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import Nav from "./nav";
-import MobileMenu from "./menu";
+import MobileMenu from "./mobile-menu/mobile-menu";
 
 const Header = ({ state }) => {
   return (
@@ -35,11 +35,6 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
   margin-bottom: 16px;
-`;
-
-const Description = styled.h4`
-  margin: 0;
-  color: rgba(255, 255, 255, 0.7);
 `;
 
 const StyledLink = styled(Link)`

@@ -3,15 +3,13 @@ import { connect, styled } from "frontity";
 import Link from "./link";
 import List from "./list";
 
+// This component is for both posts and pages
+
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
-  // Get the data of the author.
-  const author = state.source.author[post.author];
-  // Get a human readable date.
-  const date = new Date(post.date);
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
@@ -57,21 +55,6 @@ const Title = styled.h1`
   color: rgba(12, 17, 43);
 `;
 
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const Author = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
-`;
-
-const DateWrapper = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
-`;
 
 /**
  * This component is the parent of the `content.rendered` HTML. We can use nested

@@ -1,7 +1,7 @@
 import React from "react";
 import { styled, connect, Global } from "frontity";
-import { CloseIcon, HamburgerIcon } from "./menu-icon";
-import MenuModal from "./menu-modal";
+import { CloseIcon, HamburgerIcon } from "./mobile-menu-icon";
+import MenuModal from "./mobile-menu-modal";
 
 function MobileMenu({ state, actions }) {
   const { isMobileMenuOpen } = state.theme;
