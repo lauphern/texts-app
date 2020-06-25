@@ -9,18 +9,7 @@ const List = ({ state }) => {
 
   return (
     <Container>
-      This is the list
-      {/* If the list is a taxonomy, we render a title. */}
-      {data.isTaxonomy && (
-        <Header>
-          {data.taxonomy}:{" "}
-          <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
-        </Header>
-      )}
       {/* Iterate over the items of the list. */}
-      {/* TODO */}
-      helloooo
-      {/* {state.source.category[1].name} */}
       {data.items.map(({ type, id }) => {
         const item = state.source[type][id];
         // Render one Item component for each one.

@@ -63,7 +63,7 @@ const removeCategoryBaseHandler = {
       );
       await pageHandler.func({ link, params, state, libraries });
     }
-  },
+  }
 };
 
 const publicPostsHandler = {
@@ -76,7 +76,7 @@ const publicPostsHandler = {
   name: "publicPostsHandler",
   priority: 10,
   pattern: "/",
-  func: async ({ route, params, state, libraries, force = true }) => {
+  func: async ({ route, params, state, libraries }) => {
     const { api, populate } = libraries.source;
 
     // Source code of the get method https://github.com/frontity/frontity/blob/ae5e3f9f1c1efbab865dafaf7c7ea1dfbaed8d9d/packages/wp-source/src/libraries/api.ts#L17

@@ -43,9 +43,6 @@ const Theme = ({ state }) => {
       on the type of URL we are in. */}
       <Main>
         <Switch>
-        {/* TODO (two options) */}
-          {/* <Loading when={url == "/sobre-mi/"} /> */}
-          {/* https://community.frontity.org/t/how-to-create-custom-pages/435/3 */}
           <Loading when={data.isFetching} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />

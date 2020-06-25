@@ -25,26 +25,10 @@ const settings = {
               "Home",
               "/"
             ],
-            // [
-            //   "Home2",
-            //   "/home"
-            // ],
             [
               "Zona prohibida",
-              "/zona-prohibida"
-            ],
-            [
-              "hidden 1",
               "/hidden"
             ],
-            [
-              "hidden 2",
-              "/category/hidden"
-            ],
-            // [
-            //   "los posts publicos",
-            //   "/category/public"
-            // ],
             [
               "Sobre mí",
               "/sobre-mi"

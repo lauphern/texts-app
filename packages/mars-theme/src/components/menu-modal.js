@@ -17,7 +17,7 @@ const MenuModal = ({ state }) => {
               link={link}
               aria-current={state.router.link === link ? "page" : undefined}
             >
-              {name}
+              {name} Hola
             </MenuLink>
           ))}
       </MenuContent>
