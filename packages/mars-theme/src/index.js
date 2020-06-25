@@ -3,6 +3,35 @@ import image from "@frontity/html2react/processors/image";
 import iframe from "@frontity/html2react/processors/iframe";
 import { ServerError } from "@frontity/source";
 
+const newHandler = {
+  // Sources:
+  // https://community.frontity.org/t/how-to-remove-category-prefix-from-category-urls/817/3
+  // https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/postType.ts
+  name: "categoryOrPostType",
+  priority: 19,
+  pattern: "/(.*)?/:slug",
+  func: async ({ route, params, state, libraries }) => {
+    debugger
+    // 1. try with category.
+    try {
+      const category = libraries.source.handlers.find(
+        handler => handler.name == "category"
+      );
+      debugger
+      let args = { route: `/category/${params.slug}`, params: {0: "category", slug: params.slug}, state, libraries }
+      debugger
+      await category.func(args);
+      // await category.func({ route: `/category/${params.slug}`, params, state, libraries });
+    } catch (e) {
+      // If it's not a category, check with pages
+      const pageHandler = libraries.source.handlers.find(
+        handler => handler.name == "page"
+      );
+      await pageHandler.func({ link: route, params, state, libraries });
+    }
+  }
+};
+
 const publicPostsHandler = {
   // Done following these examples (source code and community):
   // https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/postTypeArchive.ts
@@ -17,8 +46,8 @@ const publicPostsHandler = {
   // pattern: /^$/g,
   // pattern: "/home",
   pattern: "/",
-  func: async ({ route, params, state, libraries }) => {
-    
+  func: async ({ route, params, state, libraries, force = true }) => {
+
     const { api, populate } = libraries.source;
 
     // Source code of the get method https://github.com/frontity/frontity/blob/ae5e3f9f1c1efbab865dafaf7c7ea1dfbaed8d9d/packages/wp-source/src/libraries/api.ts#L17
@@ -59,7 +88,7 @@ const publicPostsHandler = {
       const currentPageData = state.source.data[route];
 
       Object.assign(currentPageData, {
-        items: publicPosts
+        items: publicPosts,
       });
     } else {
       throw new ServerError(
@@ -108,7 +137,7 @@ export default {
       // TODO añadir aquí para toggleThemeMode (dark y light) y toggleLanguage (esp y eng)
       init: ({ libraries }) => {
         // Add the handler to wp-source.
-        libraries.source.handlers.push(publicPostsHandler);
+        libraries.source.handlers.push(publicPostsHandler, newHandler);
       },
     },
   },

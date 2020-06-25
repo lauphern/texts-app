@@ -12,7 +12,8 @@ const settings = {
     },
     "source": {
       // "homepage": "/home",
-      "postsPage": "/posts-page"
+      "postsPage": "/posts-page",
+      "categoryBase": ""
     },
   },
   "packages": [
@@ -35,7 +36,7 @@ const settings = {
             ],
             [
               "hidden",
-              "/category/hidden"
+              "/hidden"
             ],
             // [
             //   "los posts publicos",
