@@ -27,11 +27,11 @@ const settings = {
             ],
             [
               "Zona prohibida",
-              "/hidden"
+              "/hidden/"
             ],
             [
               "Sobre mí",
-              "/sobre-mi"
+              "/sobre-mi/"
             ]
           ],
           "featured": {
