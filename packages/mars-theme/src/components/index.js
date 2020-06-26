@@ -7,19 +7,23 @@ import Post from "./post";
 import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
+import FontFace from "./styles/font-faces";
+
+import { styleGuide } from "./styles/styleGuide";
 
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-const Theme = ({ state }) => {
 
+// let dynamicStyle = (props) => css`background-color: ${props.backgroundColor}`;
+
+const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
   //Get current URL
   const url = state.router.link;
-  
 
   return (
     <>
@@ -33,6 +37,9 @@ const Theme = ({ state }) => {
       {/* Add some global styles for the whole site, like body or a's. 
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <Global styles={globalStyles} />
+
+      {/* We add the font-faces following the example of the twentytwenty theme */}
+      <FontFace />
 
       {/* Add the header of the site. */}
       <HeadContainer>
@@ -58,12 +65,13 @@ export default connect(Theme);
 const globalStyles = css`
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Playfair Display", serif;
+    ${"" /* color: ${(props) => props.textColor} */}
+    color: ${styleGuide.colorScheme.text};
   }
   a,
   a:visited {
-    color: inherit;
+    ${"" /* color: ${(props) => props.textColor}; */}
     text-decoration: none;
   }
 `;
@@ -72,15 +80,14 @@ const HeadContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #1f38c5;
+  ${
+    "" /* Docs source to use props here: https://emotion.sh/docs/@emotion/styled */
+  }
+  background-color: ${(props) => props.backgroundColor};
+  ${"" /* ${dynamicStyle}; */}
 `;
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(
-    180deg,
-    rgba(66, 174, 228, 0.1),
-    rgba(66, 174, 228, 0)
-  );
 `;

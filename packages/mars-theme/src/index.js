@@ -150,7 +150,7 @@ export default {
       featured: {
         showOnList: false,
         showOnPost: false,
-      },
+      }
     },
   },
   /**

@@ -8,7 +8,8 @@ const settings = {
   "state": {
     "frontity": {
       "url": "https://texts-app-rouge.vercel.app",
-      "title": "Texts app"
+      "title": "Texts app",
+      "description": "Una colección de textos sobre la vida, por Cristina N."
     },
     "source": {
       // "homepage": "/home",
