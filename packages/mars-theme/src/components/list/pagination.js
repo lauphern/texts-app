@@ -47,6 +47,6 @@ const Pagination = ({ state, actions }) => {
 export default connect(Pagination);
 
 const Text = styled.em`
-  display: inline-block;
-  margin-top: 16px;
+  ${'' /* display: inline-block;
+  margin-top: 16px; */}
 `;

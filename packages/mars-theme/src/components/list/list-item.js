@@ -29,29 +29,15 @@ const Item = ({ state, item }) => {
 export default connect(Item);
 
 const Title = styled.h1`
-  font-size: 2rem;
+  ${'' /* font-size: 2rem;
   color: rgba(12, 17, 43);
   margin: 0;
   padding-top: 24px;
   padding-bottom: 8px;
-  box-sizing: border-box;
-`;
-
-const AuthorName = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-`;
-
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const PublishDate = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
+  box-sizing: border-box; */}
 `;
 
 const Excerpt = styled.div`
-  line-height: 1.6em;
-  color: rgba(12, 17, 43, 0.8);
+  ${'' /* line-height: 1.6em;
+  color: rgba(12, 17, 43, 0.8); */}
 `;

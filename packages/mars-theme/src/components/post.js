@@ -61,7 +61,7 @@ const Title = styled.h1`
  * selectors to style that HTML.
  */
 const Content = styled.div`
-  color: rgba(12, 17, 43, 0.8);
+  ${'' /* color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
 
   * {
@@ -80,7 +80,7 @@ const Content = styled.div`
 
   figure {
     margin: 24px auto;
-    /* next line overrides an inline style of the figure element. */
+    
     width: 100% !important;
 
     figcaption {
@@ -103,11 +103,11 @@ const Content = styled.div`
   a {
     color: rgb(31, 56, 197);
     text-decoration: underline;
-  }
+  } */}
 
   /* Input fields styles */
 
-  input[type="text"],
+  ${'' /* input[type="text"],
   input[type="email"],
   input[type="url"],
   input[type="tel"],
@@ -152,7 +152,7 @@ const Content = styled.div`
     border-radius: 4px;
     color: #fff;
     background-color: #1f38c5;
-  }
+  } */}
 
   /* WordPress Core Align Classes */
 

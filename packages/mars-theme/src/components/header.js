@@ -22,21 +22,21 @@ const Header = ({ state }) => {
 export default connect(Header);
 
 const Container = styled.div`
-  width: 848px;
+  ${'' /* width: 848px;
   max-width: 100%;
   box-sizing: border-box;
   padding: 24px;
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-around; */}
 `;
 
 const Title = styled.h2`
-  margin: 0;
-  margin-bottom: 16px;
+  ${'' /* margin: 0;
+  margin-bottom: 16px; */}
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
+  ${'' /* text-decoration: none; */}
 `;

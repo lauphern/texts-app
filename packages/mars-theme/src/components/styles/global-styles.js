@@ -86,7 +86,33 @@ const cssReset = css`
   }
 `;
 
+const title = css`
+  h1 {
+    font-size: ${styleGuide.textStyles.title.fontSize};
+    font-weight: ${styleGuide.textStyles.title.fontWeight};
+  }
+`;
 
-const globalStyles = () => css([cssReset]);
+const copy = css`
+  p {
+    font-size: ${styleGuide.textStyles.copy.fontSize};
+    font-height: ${styleGuide.textStyles.copy.lineHeight};
+  }
+`;
+
+const nav = css`
+  nav a,
+  nav a:visited {
+    font-size: ${styleGuide.textStyles.navItem.fontSize};
+    font-weight: ${styleGuide.textStyles.navItem.fontWeight};
+    color: ${styleGuide.colorScheme.accent};
+
+    &[aria-current="page"] {
+      color: ${styleGuide.colorScheme.text};
+    }
+  }
+`;
+
+const globalStyles = () => css([cssReset, title, copy, nav]);
 
 export default globalStyles;
