@@ -8,15 +8,14 @@ import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import FontFace from "./styles/font-faces";
+import globalStyles from "./styles/global-styles";
 
-import { styleGuide } from "./styles/styleGuide";
+import { styleGuide } from "./styles/style-guide";
 
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-
-// let dynamicStyle = (props) => css`background-color: ${props.backgroundColor}`;
 
 const Theme = ({ state }) => {
   // Get information about the current URL.
@@ -34,11 +33,8 @@ const Theme = ({ state }) => {
         <html lang="en" />
       </Head>
 
-      {/* Add some global styles for the whole site, like body or a's. 
-      Not classes here because we use CSS-in-JS. Only global HTML tags. */}
+      {/* We add the globalStyles and fontFaces following the example of the twentytwenty theme */}
       <Global styles={globalStyles} />
-
-      {/* We add the font-faces following the example of the twentytwenty theme */}
       <FontFace />
 
       {/* Add the header of the site. */}
@@ -62,29 +58,11 @@ const Theme = ({ state }) => {
 
 export default connect(Theme);
 
-const globalStyles = css`
-  body {
-    margin: 0;
-    font-family: "Playfair Display", serif;
-    ${"" /* color: ${(props) => props.textColor} */}
-    color: ${styleGuide.colorScheme.text};
-  }
-  a,
-  a:visited {
-    ${"" /* color: ${(props) => props.textColor}; */}
-    text-decoration: none;
-  }
-`;
-
 const HeadContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  ${
-    "" /* Docs source to use props here: https://emotion.sh/docs/@emotion/styled */
-  }
-  background-color: ${(props) => props.backgroundColor};
-  ${"" /* ${dynamicStyle}; */}
+  background-color: ${styleGuide.colorScheme.background};
 `;
 
 const Main = styled.div`
