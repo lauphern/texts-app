@@ -116,6 +116,8 @@ const publicPostsHandler = {
 
       const currentPageData = state.source.data[route];
 
+      //TODO fix the lack of "next" object, so the pagination works
+      //https://community.frontity.org/t/how-does-pagination-works/630/4
       Object.assign(currentPageData, {
         items: publicPosts,
       });

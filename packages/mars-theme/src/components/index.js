@@ -59,13 +59,23 @@ const Theme = ({ state }) => {
 export default connect(Theme);
 
 const HeadContainer = styled.div`
-  display: flex;
+  ${'' /* display: flex;
+  flex-direction: row;
   align-items: center;
-  flex-direction: column;
+  justify-content: space-between; */}
+  ${'' /* display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1rem; */}
+  ${styleGuide.grid12Col()}
+  position: sticky;
+  top: 0;
+  padding: 0.75rem 0;
   background-color: ${styleGuide.colorScheme.background};
 `;
 
 const Main = styled.div`
-  display: flex;
-  justify-content: center;
+  ${'' /* display: flex;
+  justify-content: center; */}
+  ${styleGuide.grid12Col()}
+  padding: 0 5vw;
 `;

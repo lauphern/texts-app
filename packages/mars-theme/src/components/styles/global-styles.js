@@ -107,6 +107,10 @@ const nav = css`
     font-weight: ${styleGuide.textStyles.navItem.fontWeight};
     color: ${styleGuide.colorScheme.accent};
 
+    &:hover {
+      color: ${styleGuide.colorScheme.text};
+    }
+
     &[aria-current="page"] {
       color: ${styleGuide.colorScheme.text};
     }

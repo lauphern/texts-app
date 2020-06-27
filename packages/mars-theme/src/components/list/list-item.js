@@ -9,10 +9,10 @@ import Link from "../link";
  * - Title: clickable title of the post
  * - Author: name of author and published date
  */
-const Item = ({ state, item }) => {
+const Item = ({ state, item, alignSelf }) => {
 
   return (
-    <article>
+    <Article alignSelf={alignSelf}>
       <Link link={item.link}>
         <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
       </Link>
@@ -21,12 +21,18 @@ const Item = ({ state, item }) => {
       {item.excerpt && (
         <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
       )}
-    </article>
+    </Article>
   );
 };
 
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
+
+const Article = styled.article`
+  width: 70%;
+  margin: 2rem 0;
+  align-self: ${props => props.alignSelf};
+`;
 
 const Title = styled.h1`
   ${'' /* font-size: 2rem;

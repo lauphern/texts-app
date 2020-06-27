@@ -22,6 +22,8 @@ const Header = ({ state }) => {
 export default connect(Header);
 
 const Container = styled.div`
+  margin-left: 5vw;
+  grid-area: 1 / 1 / 2 / 5;
   ${'' /* width: 848px;
   max-width: 100%;
   box-sizing: border-box;
