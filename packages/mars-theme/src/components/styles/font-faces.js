@@ -13,6 +13,9 @@ import PlayfairDisplayRegular from "../../fonts/playfair-display/PlayfairDisplay
 import PlayfairDisplaySemiBold from "../../fonts/playfair-display/PlayfairDisplay-SemiBold.ttf";
 import PlayfairDisplaySemiBoldItalic from "../../fonts/playfair-display/PlayfairDisplay-SemiBoldItalic.ttf";
 
+import NewsCycleRegular from "../../fonts/news-cycle/NewsCycle-Regular.ttf";
+import NewsCycleBold from "../../fonts/news-cycle/NewsCycle-Bold.ttf";
+
 const fonts = [
   PlayfairDisplayRegular,
   PlayfairDisplayItalic,
@@ -25,7 +28,9 @@ const fonts = [
   PlayfairDisplayExtraBold,
   PlayfairDisplayExtraBoldItalic,
   PlayfairDisplayBlack,
-  PlayfairDisplayBlackItalic
+  PlayfairDisplayBlackItalic,
+  NewsCycleRegular,
+  NewsCycleBold
 ];
 
 const FontFace = ({ state }) => {
@@ -115,6 +120,20 @@ const FontFace = ({ state }) => {
           font-weight: 900;
           font-display: "swap";
           src: url(${fonts[11]}) format("truetype");
+        }
+        @font-face {
+          font-family: "News Cycle";
+          font-style: normal;
+          font-weight: 400;
+          font-display: "swap";
+          src: url(${fonts[12]}) format("truetype");
+        }
+        @font-face {
+          font-family: "News Cycle";
+          font-style: bold;
+          font-weight: 700;
+          font-display: "swap";
+          src: url(${fonts[12]}) format("truetype");
         }
       `}
     />
