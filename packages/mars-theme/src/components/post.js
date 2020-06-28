@@ -48,7 +48,7 @@ const Container = styled.div`
   padding: 24px;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   margin: 0;
   margin-top: 24px;
   margin-bottom: 8px;

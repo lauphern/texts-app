@@ -45,7 +45,7 @@ const Article = styled.article`
   }
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   ${"" /* font-size: 2rem;
   color: rgba(12, 17, 43);
   margin: 0;
