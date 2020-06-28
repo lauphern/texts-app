@@ -34,7 +34,10 @@ const Container = styled.div`
   justify-content: space-around; */}
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.25rem;
   ${'' /* margin: 0;
   margin-bottom: 16px; */}
 `;
