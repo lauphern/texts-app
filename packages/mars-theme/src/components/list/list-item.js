@@ -13,7 +13,7 @@ import { styleGuide } from "../styles/style-guide";
  */
 const Item = ({ state, item, alignSelf }) => {
   return (
-    <Article alignSelf={alignSelf}>
+    <Article alignSelf={alignSelf} colorTheme={state.theme.colorTheme}>
       <Link link={item.link}>
         <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
       
@@ -29,21 +29,21 @@ const Item = ({ state, item, alignSelf }) => {
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
 
-const Article = styled.article`
+const Article = styled.article(props => `
   width: 70%;
   margin: 2rem 0;
-  align-self: ${(props) => props.alignSelf};
+  align-self: ${props.alignSelf};
 
   & > a,
   & > a:visited {
-    color: ${styleGuide.colorScheme.secondaryText};
+    color: ${styleGuide.colorScheme[props.colorTheme].secondaryText};
     transition: all 0.15s;
 
     &:hover {
-      color: ${styleGuide.colorScheme.text};
+      color: ${styleGuide.colorScheme[props.colorTheme].text};
     }
   }
-`;
+`);
 
 const Title = styled.h2`
   ${"" /* font-size: 2rem;

@@ -149,6 +149,7 @@ export default {
         showOnList: false,
         showOnPost: false,
       },
+      colorTheme: "light",
     },
   },
   /**
@@ -162,6 +163,10 @@ export default {
       },
       closeMobileMenu: ({ state }) => {
         state.theme.isMobileMenuOpen = false;
+      },
+      toggleColorTheme: ({ state }) => {
+        if(state.theme.colorTheme === "light") state.theme.colorTheme = "dark"
+        else state.theme.colorTheme = "light"
       },
       // TODO añadir aquí para toggleThemeMode (dark y light) y toggleLanguage (esp y eng)
       init: ({ libraries }) => {

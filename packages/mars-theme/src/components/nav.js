@@ -23,7 +23,7 @@ const Nav = ({ state }) => (
         </NavItem>
       );
     })}
-    <Underline />
+    <Underline colorTheme={state.theme.colorTheme} />
   </NavContainer>
 );
 
@@ -35,12 +35,12 @@ const NavContainer = styled.nav`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  ${'' /* width: 80vw; */}
+  ${"" /* width: 80vw; */}
   max-height: 20vh;
   padding-right: 5vw;
   margin: 0;
   overflow-x: auto;
-  ${'' /* position: relative; */}
+  ${"" /* position: relative; */}
 
   @media screen and (max-width: 560px) {
     display: none;
@@ -86,11 +86,11 @@ const NavItem = styled.div`
   }
 `;
 
-const Underline = styled.div`
-  background-color: ${styleGuide.colorScheme.accent};
+const Underline = styled.div(props => `
+  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
   height: 3px;
   width: 66.7%;
   position: absolute;
   right: 0;
   bottom: 0;
-`;
+`);

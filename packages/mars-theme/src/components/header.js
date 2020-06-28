@@ -4,7 +4,7 @@ import Link from "./link";
 import Nav from "./nav";
 import MobileMenu from "./mobile-menu/mobile-menu";
 
-const Header = ({ state }) => {
+const Header = ({ state, actions }) => {
   return (
     <>
       <Container>
@@ -14,6 +14,7 @@ const Header = ({ state }) => {
         <MobileMenu />
       </Container>
       <Nav />
+      <BtnTheme onClick={actions.theme.toggleColorTheme}>Dark mode</BtnTheme>
     </>
   );
 };
@@ -45,3 +46,5 @@ const Title = styled.h1`
 const StyledLink = styled(Link)`
   ${'' /* text-decoration: none; */}
 `;
+
+const BtnTheme = styled.button``;

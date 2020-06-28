@@ -34,17 +34,17 @@ const Theme = ({ state }) => {
       </Head>
 
       {/* We add the globalStyles and fontFaces following the example of the twentytwenty theme */}
-      <Global styles={globalStyles} />
+      <Global styles={globalStyles(state.theme.colorTheme)} />
       <FontFace />
 
       {/* Add the header of the site. */}
-      <HeadContainer>
+      <HeadContainer colorTheme={state.theme.colorTheme}>
         <Header />
       </HeadContainer>
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
-      <Main>
+      <Main colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
           <List when={data.isArchive} />
@@ -58,7 +58,7 @@ const Theme = ({ state }) => {
 
 export default connect(Theme);
 
-const HeadContainer = styled.div`
+const HeadContainer = styled.div(props => `
   ${'' /* display: flex;
   flex-direction: row;
   align-items: center;
@@ -70,12 +70,13 @@ const HeadContainer = styled.div`
   position: sticky;
   top: 0;
   padding: 0.75rem 0;
-  background-color: ${styleGuide.colorScheme.background};
-`;
+  background-color: ${styleGuide.colorScheme[props.colorTheme].navBackground};
+`);
 
-const Main = styled.div`
+const Main = styled.div(props => `
   ${'' /* display: flex;
   justify-content: center; */}
   ${styleGuide.grid12Col()}
+  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   padding: 0 5vw;
-`;
+`);

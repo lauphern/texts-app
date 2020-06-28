@@ -1,7 +1,7 @@
 import { css } from "frontity";
 import { styleGuide } from "./style-guide";
 
-const cssReset = css`
+const cssReset = colorTheme => css`
   ${"" /* I have adapted the reset stylesheet from: https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */}
   /* Box sizing rules */
   *,
@@ -36,11 +36,12 @@ const cssReset = css`
 
   /* Set core body defaults */
   body {
+    background: ${styleGuide.colorScheme[colorTheme].background};
     min-height: 100vh;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     font-family: "Playfair Display", serif;
-    color: ${styleGuide.colorScheme.text};
+    color: ${styleGuide.colorScheme[colorTheme].text};
   }
 
   /* Remove list styles on ul, ol elements with a class attribute */
@@ -53,7 +54,7 @@ const cssReset = css`
   a,
   a:visited {
     text-decoration: none;
-    color: ${styleGuide.colorScheme.text};
+    color: ${styleGuide.colorScheme[colorTheme].text};
   }
 
   /* Make images easier to work with */
@@ -100,23 +101,23 @@ const copy = css`
   }
 `;
 
-const nav = css`
+const nav = colorTheme => css`
   nav a,
   nav a:visited {
     font-size: ${styleGuide.textStyles.navItem.fontSize};
     font-weight: ${styleGuide.textStyles.navItem.fontWeight};
-    color: ${styleGuide.colorScheme.accent};
+    color: ${styleGuide.colorScheme[colorTheme].accent};
 
     &:hover {
-      color: ${styleGuide.colorScheme.text};
+      color: ${styleGuide.colorScheme[colorTheme].text};
     }
 
     &[aria-current="page"] {
-      color: ${styleGuide.colorScheme.text};
+      color: ${styleGuide.colorScheme[colorTheme].text};
     }
   }
 `;
 
-const globalStyles = () => css([cssReset, title, copy, nav]);
+const globalStyles = colorTheme => css([cssReset(colorTheme), title, copy, nav(colorTheme)]);
 
 export default globalStyles;

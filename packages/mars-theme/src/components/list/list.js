@@ -4,7 +4,7 @@ import Item from "./list-item";
 import Pagination from "./pagination";
 import Scrollbar from "./scrollbar";
 
-import { styleGuide } from "../styles/style-guide";
+import styleGuide from "../styles/style-guide";
 
 const List = ({ state }) => {
   // Get the data of the current list.
