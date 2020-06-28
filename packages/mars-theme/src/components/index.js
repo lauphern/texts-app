@@ -67,6 +67,7 @@ const HeadContainer = styled.div(props => `
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 1rem; */}
   ${styleGuide.grid12Col()}
+  align-items: center;
   position: sticky;
   top: 0;
   padding: 0.75rem 0;
