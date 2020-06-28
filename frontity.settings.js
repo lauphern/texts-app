@@ -8,8 +8,8 @@ const settings = {
   "state": {
     "frontity": {
       "url": "https://texts-app-rouge.vercel.app",
-      "title": "Historias en las que no ocurre nada",
-      "description": "Una colección de textos sobre la vida, por Cristina N."
+      "title": "Cristina N.",
+      "description": "Historias en las que no ocurre nada"
     },
     "source": {
       // "homepage": "/home",

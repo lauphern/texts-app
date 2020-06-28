@@ -37,7 +37,7 @@ const NavContainer = styled.nav`
   align-items: center;
   ${"" /* width: 80vw; */}
   max-height: 20vh;
-  padding-right: 5vw;
+  padding-right: 2vw;
   margin: 0;
   overflow-x: auto;
   ${"" /* position: relative; */}

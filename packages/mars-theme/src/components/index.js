@@ -79,5 +79,5 @@ const Main = styled.div(props => `
   justify-content: center; */}
   ${styleGuide.grid12Col()}
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  padding: 0 5vw;
+  padding: 0 2vw;
 `);

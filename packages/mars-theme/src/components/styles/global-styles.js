@@ -88,7 +88,7 @@ const cssReset = colorTheme => css`
 `;
 
 const title = css`
-  h1 {
+  h2 {
     font-size: ${styleGuide.textStyles.title.fontSize};
     font-weight: ${styleGuide.textStyles.title.fontWeight};
   }

@@ -24,7 +24,7 @@ export const styleGuide = {
   },
   textStyles: {
     title: {
-      fontSize: "48px",
+      fontSize: "2rem",
       fontWeight: "bold",
     },
     copy: {
@@ -32,7 +32,7 @@ export const styleGuide = {
       lineHeight: 1.5,
     },
     navItem: {
-      fontSize: "32px",
+      fontSize: "1.5rem",
       fontWeight: "bold",
     },
   },
