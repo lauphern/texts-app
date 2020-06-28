@@ -95,4 +95,5 @@ const CircleToggle = styled.div(
 
 const TextToggleTheme = styled.strong`
   font-size: 0.8rem;
+  font-family: "News Cycle", sans-serif;
 `;

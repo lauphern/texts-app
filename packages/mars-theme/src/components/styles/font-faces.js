@@ -133,7 +133,7 @@ const FontFace = ({ state }) => {
           font-style: bold;
           font-weight: 700;
           font-display: "swap";
-          src: url(${fonts[12]}) format("truetype");
+          src: url(${fonts[13]}) format("truetype");
         }
       `}
     />
