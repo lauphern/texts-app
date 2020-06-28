@@ -33,6 +33,10 @@ const settings = {
             [
               "Sobre mí",
               "/sobre-mi/"
+            ],
+            [
+              "public",
+              "/public/"
             ]
           ],
           "featured": {
@@ -46,7 +50,10 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "api": process.env.PACKAGES_STATE_API
+          "api": process.env.PACKAGES_STATE_API,
+          "params": {
+            "per_page": 30
+          }
         }
       }
     },

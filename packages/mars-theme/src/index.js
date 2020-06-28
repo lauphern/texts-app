@@ -19,10 +19,8 @@ const removeCategoryBaseHandler = {
   // In our case, we only have categories and pages/posts
   pattern: "/(.*)?/:slug",
   func: async ({ link, route, params, state, libraries }) => {
-
     // 1 ---------> try with category <---------
     try {
-
       // FIRST, we retrieve the category handler
       const categoryHandler = libraries.source.handlers.find(
         (handler) => handler.name == "category"
@@ -45,7 +43,7 @@ const removeCategoryBaseHandler = {
         libraries,
       };
       await categoryHandler.func(args);
-      
+
       // FIFTH
       // Lastly, if our slug corresponded to a category (categoryHandler.func() suceeded) but it was of type "/:slug"
       // after the categoryHandler, we need to update the page data of our route ("/:slug")
@@ -55,7 +53,6 @@ const removeCategoryBaseHandler = {
         const newPageData = state.source.data[categoryRoute];
         Object.assign(currentPageData, newPageData);
       }
-
     } catch (e) {
       // 2 ---------> If it's not a category, check with pages (it works for posts too) <---------
       const pageHandler = libraries.source.handlers.find(
@@ -63,7 +60,7 @@ const removeCategoryBaseHandler = {
       );
       await pageHandler.func({ link, params, state, libraries });
     }
-  }
+  },
 };
 
 const publicPostsHandler = {
@@ -99,7 +96,8 @@ const publicPostsHandler = {
       const publicCatId = publicCat.id;
       // 2. We retrieve the comments from the category "public"
       const response2 = await api.get({
-        endpoint: `/posts?categories=${publicCatId}`,
+        endpoint: `/posts`,
+        params: { _embed: true, categories: `${publicCatId}`, per_page: 30 },
       });
 
       // 3. Populate the state with the public posts
@@ -150,7 +148,7 @@ export default {
       featured: {
         showOnList: false,
         showOnPost: false,
-      }
+      },
     },
   },
   /**
