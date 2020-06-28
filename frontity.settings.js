@@ -7,7 +7,7 @@ const settings = {
   "name": "texts-app",
   "state": {
     "frontity": {
-      "url": "https://texts-app-rouge.vercel.app",
+      "url": "https://cristina-escritora.vercel.app",
       "title": "Cristina N.",
       "description": "Historias en las que no ocurre nada"
     },
