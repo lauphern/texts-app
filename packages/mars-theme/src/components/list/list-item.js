@@ -13,6 +13,7 @@ import { styleGuide } from "../styles/style-guide";
  */
 const Item = ({ state, item, alignSelf }) => {
   return (
+    <>
     <Article alignSelf={alignSelf} colorTheme={state.theme.colorTheme}>
       <Link link={item.link}>
         <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
@@ -23,6 +24,8 @@ const Item = ({ state, item, alignSelf }) => {
       )}
       </Link>
     </Article>
+    <Divider colorTheme={state.theme.colorTheme}/>
+    </>
   );
 };
 
@@ -31,8 +34,12 @@ export default connect(Item);
 
 const Article = styled.article(props => `
   width: 70%;
+  height: 60vh;
+  overflow: hidden;
   margin: 2rem 0;
   align-self: ${props.alignSelf};
+  display: flex;
+  align-items: center;
 
   & > a,
   & > a:visited {
@@ -58,3 +65,11 @@ const Excerpt = styled.div`
   ${"" /* line-height: 1.6em;
   color: rgba(12, 17, 43, 0.8); */}
 `;
+
+const Divider = styled.div(props => `
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-color: ${styleGuide.colorScheme[props.colorTheme].secondaryText}
+`);
