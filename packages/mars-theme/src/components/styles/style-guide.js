@@ -4,7 +4,8 @@ export const styleGuide = {
   colorScheme: {
     accent: "#FFD4B2",
     background: "rgba(255, 255, 255, 0.8)",
-    text: "#000"
+    text: "#000",
+    secondaryText: "#c4c4c4"
   },
   textStyles: {
     title: {
