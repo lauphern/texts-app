@@ -106,6 +106,7 @@ const nav = css`
     font-size: ${styleGuide.textStyles.navItem.fontSize};
     font-weight: ${styleGuide.textStyles.navItem.fontWeight};
     color: ${styleGuide.colorScheme.accent};
+    transition: all 0.15s;
 
     &:hover {
       color: ${styleGuide.colorScheme.text};

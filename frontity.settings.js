@@ -33,6 +33,10 @@ const settings = {
             [
               "Sobre mí",
               "/sobre-mi/"
+            ],
+            [
+              "Public",
+              "/public/"
             ]
           ],
           "featured": {

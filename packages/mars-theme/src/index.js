@@ -19,10 +19,8 @@ const removeCategoryBaseHandler = {
   // In our case, we only have categories and pages/posts
   pattern: "/(.*)?/:slug",
   func: async ({ link, route, params, state, libraries }) => {
-
     // 1 ---------> try with category <---------
     try {
-
       // FIRST, we retrieve the category handler
       const categoryHandler = libraries.source.handlers.find(
         (handler) => handler.name == "category"
@@ -45,7 +43,7 @@ const removeCategoryBaseHandler = {
         libraries,
       };
       await categoryHandler.func(args);
-      
+
       // FIFTH
       // Lastly, if our slug corresponded to a category (categoryHandler.func() suceeded) but it was of type "/:slug"
       // after the categoryHandler, we need to update the page data of our route ("/:slug")
@@ -55,7 +53,6 @@ const removeCategoryBaseHandler = {
         const newPageData = state.source.data[categoryRoute];
         Object.assign(currentPageData, newPageData);
       }
-
     } catch (e) {
       // 2 ---------> If it's not a category, check with pages (it works for posts too) <---------
       const pageHandler = libraries.source.handlers.find(
@@ -63,7 +60,7 @@ const removeCategoryBaseHandler = {
       );
       await pageHandler.func({ link, params, state, libraries });
     }
-  }
+  },
 };
 
 const publicPostsHandler = {
@@ -77,8 +74,16 @@ const publicPostsHandler = {
   priority: 10,
   pattern: "/",
   func: async ({ route, params, state, libraries }) => {
-    const { api, populate } = libraries.source;
-
+    const {
+      api,
+      populate,
+      parse,
+      stringify,
+      getTotal,
+      getTotalPages,
+    } = libraries.source;
+    const { page, query } = parse(route);
+    debugger;
     // Source code of the get method https://github.com/frontity/frontity/blob/ae5e3f9f1c1efbab865dafaf7c7ea1dfbaed8d9d/packages/wp-source/src/libraries/api.ts#L17
     // 1. We get the list of categories to find the id of the category "public"
     const response1 = await api.get({
@@ -105,21 +110,76 @@ const publicPostsHandler = {
       // 3. Populate the state with the public posts
       // Code source of populate method: https://github.com/frontity/frontity/blob/ae5e3f9f1c1efbab865dafaf7c7ea1dfbaed8d9d/packages/wp-source/src/libraries/populate.ts#L34
       // And docs: https://docs.frontity.org/api-reference-1/wordpress-source#libraries
-      const publicPosts = await populate({
+      const items = await populate({
         response: response2,
         state,
         force: true,
       });
 
-      // 4. We add the public posts to the state (inside the route) and change the isArchive property to true to use the List component in this route
+      // We need to create the pages for the pagination of the list
+      // Source code: https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/taxonomy.ts
+
+      // 4. get posts and pages count
+      const totalItems = getTotal(response2, items.length);
+      const totalPages = getTotalPages(response2, 0);
+
+      // returns true if next page exists
+      const hasNewerPosts = page < totalPages;
+      // returns true if previous page exists
+      const hasOlderPosts = page > 1;
+      debugger;
+      const getPageLink = (page) =>
+        stringify({
+          route,
+          query,
+          page,
+        });
+
+      let testFirstPage = getPageLink(1);
+      let testSecondPage = getPageLink(2);
+      let testFirstPageData = state.source.data[testFirstPage];
+      let testSecondPageData = state.source.data[testSecondPage];
+
+      debugger
+      // 5. add data to source
+      // const currentPageData = state.source.data[link];
+      // const firstPageData = state.source.data[route];
+      // const newPageData =
+
+      // const newPageData: TaxonomyData | TaxonomyWithSearchData = {
+      //   id: firstPageData.id,
+      //   taxonomy: firstPageData.taxonomy,
+      //   items,
+      //   total: totalItems,
+      //   totalPages,
+      //   isArchive: true,
+      //   isTaxonomy: true,
+      //   isFetching: currentPageData.isFetching,
+      //   isReady: currentPageData.isReady,
+      //   [`is${capitalize(firstPageData.taxonomy)}`]: true,
+
+      //   // Add next and previous if they exist.
+      //   ...(hasOlderPosts && { previous: getPageLink(page - 1) }),
+      //   ...(hasNewerPosts && { next: getPageLink(page + 1) }),
+
+      //   // Add search data if this is a search.
+      //   ...(query.s && { isSearch: true, searchQuery: query.s }),
+      // };
+
+      // Object.assign(currentPageData, newPageData);
+
+      // 5. We add the public posts to the state (inside the route) and change the isArchive property to true to use the List component in this route
+
       state.source.data[route].isArchive = true;
 
       const currentPageData = state.source.data[route];
+      const firstPageData = state.source.data[route];
+      const newPageData = state.source.data[getPageLink()];
 
       //TODO fix the lack of "next" object, so the pagination works
       //https://community.frontity.org/t/how-does-pagination-works/630/4
       Object.assign(currentPageData, {
-        items: publicPosts,
+        items,
       });
     } else {
       throw new ServerError(
@@ -152,7 +212,7 @@ export default {
       featured: {
         showOnList: false,
         showOnPost: false,
-      }
+      },
     },
   },
   /**
