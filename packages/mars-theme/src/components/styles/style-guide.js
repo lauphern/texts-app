@@ -8,14 +8,16 @@
 export const styleGuide = {
   colorScheme: {
     light: {
-      accent: "#FFD4B2",
+      // accent: "#FFD4B2",
+      accent: "rgb(219,124,178)",
       navBackground: "rgba(255, 255, 255, 0.8)",
       background: "#FFF",
       text: "#000",
       secondaryText: "#c4c4c4",
     },
     dark: {
-      accent: "#FFD4B2",
+      // accent: "#FFD4B2",
+      accent: "rgb(219,124,178)",
       navBackground: "rgba(50, 50, 50, 0.8)",
       background: "rgb(50,50,50)",
       text: "#FFF",

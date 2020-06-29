@@ -11,7 +11,7 @@ import { styleGuide } from "../styles/style-guide";
  * - Title: clickable title of the post
  * - Author: name of author and published date
  */
-const Item = ({ state, item, alignSelf }) => {
+const Item = ({ state, item, alignSelf, isItLastItem }) => {
   return (
     <>
     <Article alignSelf={alignSelf} colorTheme={state.theme.colorTheme}>
@@ -24,7 +24,7 @@ const Item = ({ state, item, alignSelf }) => {
       )}
       </Link>
     </Article>
-    <Divider colorTheme={state.theme.colorTheme}/>
+    {!isItLastItem && <Divider colorTheme={state.theme.colorTheme}/>}
     </>
   );
 };

@@ -34,6 +34,11 @@ const cssReset = colorTheme => css`
     margin: 0;
   }
 
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   /* Set core body defaults */
   body {
     background: ${styleGuide.colorScheme[colorTheme].background};

@@ -2,7 +2,6 @@ import React from "react";
 import { connect, styled, decode } from "frontity";
 import Item from "./list-item";
 import Pagination from "./pagination";
-import Scrollbar from "./scrollbar";
 
 import styleGuide from "../styles/style-guide";
 
@@ -12,16 +11,27 @@ const List = ({ state }) => {
 
   return (
     <>
-      <Scrollbar />
       <Container>
         {/* Iterate over the items of the list. */}
         {data.items.map(({ type, id }, index) => {
           const item = state.source[type][id];
+          let isItLastItem = false;
+          if (data.items.length === index + 1) isItLastItem = true;
           // Render one Item component for each one.
           return index % 2 === 0 ? (
-            <Item key={item.id} item={item} alignSelf={"flex-start"} />
+            <Item
+              key={item.id}
+              item={item}
+              alignSelf={"flex-start"}
+              isItLastItem={isItLastItem}
+            />
           ) : (
-            <Item key={item.id} item={item} alignSelf={"flex-end"} />
+            <Item
+              key={item.id}
+              item={item}
+              alignSelf={"flex-end"}
+              isItLastItem={isItLastItem}
+            />
           );
         })}
         <Pagination />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Header from "./header";
@@ -10,6 +10,8 @@ import PageError from "./page-error";
 import FontFace from "./styles/font-faces";
 import globalStyles from "./styles/global-styles";
 
+import { scrollbarInit } from "./scrollbar";
+
 import { styleGuide } from "./styles/style-guide";
 
 /**
@@ -17,12 +19,16 @@ import { styleGuide } from "./styles/style-guide";
  * in roots.
  */
 
+
 const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
-  //Get current URL
-  const url = state.router.link;
+  const RefToMain = useRef(null);
+
+  useEffect(() => {
+    scrollbarInit(RefToMain, state.theme.colorTheme);
+  }, []);
 
   return (
     <>
@@ -44,7 +50,7 @@ const Theme = ({ state }) => {
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
-      <Main colorTheme={state.theme.colorTheme}>
+      <Main ref={RefToMain} colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
           <List when={data.isArchive} />
@@ -58,26 +64,42 @@ const Theme = ({ state }) => {
 
 export default connect(Theme);
 
-const HeadContainer = styled.div(props => `
-  ${'' /* display: flex;
+const HeadContainer = styled.div(
+  (props) => `
+  ${
+    "" /* display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between; */}
-  ${'' /* display: grid;
+  justify-content: space-between; */
+  }
+  ${
+    "" /* display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-gap: 1rem; */}
+  grid-gap: 1rem; */
+  }
   ${styleGuide.grid12Col()}
   align-items: center;
   position: sticky;
   top: 0;
   padding: 0.75rem 0;
   background-color: ${styleGuide.colorScheme[props.colorTheme].navBackground};
-`);
+  height: 20vh;
+`
+);
 
-const Main = styled.div(props => `
-  ${'' /* display: flex;
-  justify-content: center; */}
-  ${styleGuide.grid12Col()}
+const Main = styled.div(
+  (props) => `
+  ${
+    "" /* display: flex;
+  justify-content: center; 
+  ${styleGuide.grid12Col()}*/
+  }
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  padding: 0 2vw;
-`);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  height: calc(100% - 20vh);
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+`
+);

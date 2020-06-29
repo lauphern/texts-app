@@ -24,7 +24,7 @@ const Header = ({ state, actions }) => {
         >
           <CircleToggle colorTheme={state.theme.colorTheme} />
         </ToggleTheme>
-        <TextToggleTheme>Reader mode</TextToggleTheme>
+        <TextToggleTheme>Modo lectura</TextToggleTheme>
       </ToggleContainer>
     </>
   );
