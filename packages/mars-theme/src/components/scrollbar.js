@@ -1,13 +1,21 @@
 import { styleGuide } from "./styles/style-guide";
 
-export const scrollbarInit = function (scrollableComponent, colorTheme) {
+
+//TODO arreglar que no se ve el contenido detras de la navbar
+export const scrollbarInit = function ({
+  scrollableComponent,
+  colorTheme,
+  fixedPos,
+  perspectiveCtr,
+  thumb
+}) {
   // Scrollbar functionality following (and adapting) this example:
   // https://developers.google.com/web/updates/2017/03/custom-scrollbar
   // https://github.com/GoogleChromeLabs/ui-element-samples/blob/gh-pages/custom-scrollbar/index.html
 
   let dragging = false;
   let lastY = 0;
-  
+
   document.querySelector("#root").style.height = "100%";
 
   function dragStart(event) {
@@ -42,9 +50,7 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
   // the amount of overflow.
   function updateSize(scrollable) {
     scrollable.style.width = "";
-    scrollable.style.width = `${
-      getComputedStyle(scrollable).width
-    }`;
+    scrollable.style.width = `${getComputedStyle(scrollable).width}`;
 
     let thumb = scrollable.thumb;
     let viewport = scrollable.getBoundingClientRect();
@@ -85,19 +91,19 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
     // See https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5084491/
     if (getComputedStyle(document.body).transform == "none")
       document.body.style.transform = "translateZ(0)";
-    const fixedPos = document.createElement("div");
+    // const fixedPos = document.createElement("div");
     fixedPos.style.position = "fixed";
     fixedPos.style.top = "0";
     fixedPos.style.width = "1px";
     fixedPos.style.height = "1px";
     fixedPos.style.zIndex = 1;
-    document.body.insertBefore(fixedPos, document.body.firstChild);
+    // document.body.insertBefore(fixedPos, document.body.firstChild);
 
     scrollable.style.perspectiveOrigin = "top left";
     scrollable.style.transformStyle = "preserve-3d";
     scrollable.style.perspective = "1px";
 
-    const perspectiveCtr = document.createElement("div");
+    // const perspectiveCtr = document.createElement("div");
     perspectiveCtr.style.perspectiveOrigin = "top left";
     perspectiveCtr.style.transformStyle = "preserve-3d";
     perspectiveCtr.style.width = "100%";
@@ -106,13 +112,13 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
     perspectiveCtr.style.gridTemplateColumns = "repeat(12, 1fr)";
     perspectiveCtr.style.gridGap = "1rem";
     perspectiveCtr.style.padding = "0 2vw";
-    perspectiveCtr.classList.add("perspective-ctr");
+    // perspectiveCtr.classList.add("perspective-ctr");
 
-    while (scrollable.firstChild)
-      perspectiveCtr.appendChild(scrollable.firstChild);
+    // while (scrollable.firstChild)
+      // perspectiveCtr.appendChild(scrollable.firstChild);
 
-    scrollable.insertBefore(perspectiveCtr, scrollable.firstChild);
-    const thumb = document.createElement("div");
+    // scrollable.insertBefore(perspectiveCtr, scrollable.firstChild);
+    // const thumb = document.createElement("div");
     thumb.style.width = "30px";
     thumb.style.height = "30px";
     thumb.style.borderRadius = "50%";
@@ -123,7 +129,7 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
     thumb.style.top = "0";
     thumb.style.left = "0";
     thumb.style.cursor = "pointer";
-    perspectiveCtr.insertBefore(thumb, perspectiveCtr.firstChilds);
+    // perspectiveCtr.insertBefore(thumb, perspectiveCtr.firstChilds);
 
     scrollable.thumb = thumb;
     scrollable.perspectiveCtr = perspectiveCtr;
@@ -148,11 +154,9 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
         });
     }
 
-    scrollable.thumb.addEventListener(
-      "mousedown",
-      dragStart.bind(scrollable),
-      { passive: true }
-    );
+    scrollable.thumb.addEventListener("mousedown", dragStart.bind(scrollable), {
+      passive: true,
+    });
     window.addEventListener("mousemove", dragMove.bind(scrollable));
     window.addEventListener("mouseup", dragEnd.bind(scrollable), {
       passive: true,
@@ -175,7 +179,6 @@ export const scrollbarInit = function (scrollableComponent, colorTheme) {
     return f;
   }
 
-  makeCustomScrollbar(scrollableComponent.current);
-  updateSize(scrollableComponent.current);
-
+  makeCustomScrollbar(scrollableComponent);
+  updateSize(scrollableComponent);
 };

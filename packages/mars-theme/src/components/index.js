@@ -19,16 +19,24 @@ import { styleGuide } from "./styles/style-guide";
  * in roots.
  */
 
-
 const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
   const RefToMain = useRef(null);
+  const RefToFixedPos = useRef(null);
+  const RefToPerspectiveCtr = useRef(null);
+  const RefToThumb = useRef(null)
 
   useEffect(() => {
-    scrollbarInit(RefToMain, state.theme.colorTheme);
-  }, []);
+    if(data.isArchive) scrollbarInit({
+      scrollableComponent: RefToMain.current,
+      colorTheme: state.theme.colorTheme,
+      fixedPos: RefToFixedPos.current,
+      perspectiveCtr: RefToPerspectiveCtr.current,
+      thumb: RefToThumb.current
+    });
+  });
 
   return (
     <>
@@ -43,6 +51,9 @@ const Theme = ({ state }) => {
       <Global styles={globalStyles(state.theme.colorTheme)} />
       <FontFace />
 
+      {/* This element is for the scrollbar functionality */}
+      <div ref={RefToFixedPos}></div>
+
       {/* Add the header of the site. */}
       <HeadContainer colorTheme={state.theme.colorTheme}>
         <Header />
@@ -53,7 +64,10 @@ const Theme = ({ state }) => {
       <Main ref={RefToMain} colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
-          <List when={data.isArchive} />
+          <PerspectiveCtr when={data.isArchive} ref={RefToPerspectiveCtr}>
+            <div ref={RefToThumb}></div>
+            <List />
+          </PerspectiveCtr>
           <Post when={data.isPostType} />
           <PageError />
         </Switch>
@@ -103,3 +117,5 @@ const Main = styled.div(
   -webkit-overflow-scrolling: touch;
 `
 );
+
+const PerspectiveCtr = styled.div``;
