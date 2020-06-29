@@ -34,7 +34,6 @@ const Header = ({ state, actions }) => {
 export default connect(Header);
 
 const Container = styled.div`
-  margin-left: 2vw;
   grid-area: 1 / 1 / 3 / 5;
   ${"" /* width: 848px;
   max-width: 100%;
@@ -73,7 +72,6 @@ const StyledLink = styled(Link)`
 const ToggleContainer = styled.div`
   grid-area: 2 / 11 / 3 / 13;
   justify-self: end;
-  padding-right: 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -26,16 +26,17 @@ const Theme = ({ state }) => {
   const RefToMain = useRef(null);
   const RefToFixedPos = useRef(null);
   const RefToPerspectiveCtr = useRef(null);
-  const RefToThumb = useRef(null)
+  const RefToThumb = useRef(null);
 
   useEffect(() => {
-    if(data.isArchive) scrollbarInit({
-      scrollableComponent: RefToMain.current,
-      colorTheme: state.theme.colorTheme,
-      fixedPos: RefToFixedPos.current,
-      perspectiveCtr: RefToPerspectiveCtr.current,
-      thumb: RefToThumb.current
-    });
+    if (data.isArchive)
+      scrollbarInit({
+        scrollableComponent: RefToMain.current,
+        colorTheme: state.theme.colorTheme,
+        fixedPos: RefToFixedPos.current,
+        perspectiveCtr: RefToPerspectiveCtr.current,
+        thumb: RefToThumb.current
+      });
   });
 
   return (
@@ -52,7 +53,7 @@ const Theme = ({ state }) => {
       <FontFace />
 
       {/* This element is for the scrollbar functionality */}
-      <div ref={RefToFixedPos}></div>
+      <FixedPos ref={RefToFixedPos}></FixedPos>
 
       {/* Add the header of the site. */}
       <HeadContainer colorTheme={state.theme.colorTheme}>
@@ -65,7 +66,8 @@ const Theme = ({ state }) => {
         <Switch>
           <Loading when={data.isFetching} />
           <PerspectiveCtr when={data.isArchive} ref={RefToPerspectiveCtr}>
-            <div ref={RefToThumb}></div>
+            <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
+            <Track colorTheme={state.theme.colorTheme} />
             <List />
           </PerspectiveCtr>
           <Post when={data.isPostType} />
@@ -95,9 +97,9 @@ const HeadContainer = styled.div(
   align-items: center;
   position: sticky;
   top: 0;
-  padding: 0.75rem 0;
+  padding: 0.75rem 2vw 0.75rem 0;
   background-color: ${styleGuide.colorScheme[props.colorTheme].navBackground};
-  height: 20vh;
+  height: 15vh;
 `
 );
 
@@ -112,10 +114,63 @@ const Main = styled.div(
   overflow-x: hidden;
   overflow-y: scroll;
   width: 100%;
-  height: calc(100% - 20vh);
+  height: calc(100% - 15vh);
   position: relative;
   -webkit-overflow-scrolling: touch;
 `
 );
 
-const PerspectiveCtr = styled.div``;
+const FixedPos = styled.div`
+  position: fixed;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  z-index: 1;
+`;
+
+const PerspectiveCtr = styled.div`
+  perspective-origin: top left;
+  transform-style: preserve-3d;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1rem;
+  padding-right: 2vw;
+`;
+
+const Thumb = styled.div(props => `
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
+  pointer-events: initial;
+  position: absolute;
+  transform-origin: top left;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+
+  &:hover:before {
+    transform: scale(1.2);
+  }
+
+  &:before{
+    content: "";
+    background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.15s;
+  }
+`);
+
+const Track = styled.div(props => `
+  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5px;
+  height: calc(100% - 10px);
+  margin: 5px 0 0 4.25px;
+`);

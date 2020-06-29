@@ -37,7 +37,6 @@ const NavContainer = styled.nav`
   align-items: center;
   ${"" /* width: 80vw; */}
   max-height: 20vh;
-  padding-right: 2vw;
   margin: 0;
   overflow-x: auto;
   ${"" /* position: relative; */}
@@ -88,7 +87,7 @@ const NavItem = styled.div`
 
 const Underline = styled.div(props => `
   background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
-  height: 3px;
+  height: 1.5px;
   width: 66.7%;
   position: absolute;
   right: 0;

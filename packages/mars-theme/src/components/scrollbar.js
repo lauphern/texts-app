@@ -2,6 +2,7 @@ import { styleGuide } from "./styles/style-guide";
 
 
 //TODO arreglar que no se ve el contenido detras de la navbar
+//TODO Luego hacer la linea, el thumbTrack (con ref!!)
 export const scrollbarInit = function ({
   scrollableComponent,
   colorTheme,
@@ -92,11 +93,11 @@ export const scrollbarInit = function ({
     if (getComputedStyle(document.body).transform == "none")
       document.body.style.transform = "translateZ(0)";
     // const fixedPos = document.createElement("div");
-    fixedPos.style.position = "fixed";
-    fixedPos.style.top = "0";
-    fixedPos.style.width = "1px";
-    fixedPos.style.height = "1px";
-    fixedPos.style.zIndex = 1;
+    // fixedPos.style.position = "fixed";
+    // fixedPos.style.top = "0";
+    // fixedPos.style.width = "1px";
+    // fixedPos.style.height = "1px";
+    // fixedPos.style.zIndex = 1;
     // document.body.insertBefore(fixedPos, document.body.firstChild);
 
     scrollable.style.perspectiveOrigin = "top left";
@@ -104,14 +105,14 @@ export const scrollbarInit = function ({
     scrollable.style.perspective = "1px";
 
     // const perspectiveCtr = document.createElement("div");
-    perspectiveCtr.style.perspectiveOrigin = "top left";
-    perspectiveCtr.style.transformStyle = "preserve-3d";
-    perspectiveCtr.style.width = "100%";
-    perspectiveCtr.style.position = "absolute";
-    perspectiveCtr.style.display = "grid";
-    perspectiveCtr.style.gridTemplateColumns = "repeat(12, 1fr)";
-    perspectiveCtr.style.gridGap = "1rem";
-    perspectiveCtr.style.padding = "0 2vw";
+    // perspectiveCtr.style.perspectiveOrigin = "top left";
+    // perspectiveCtr.style.transformStyle = "preserve-3d";
+    // perspectiveCtr.style.width = "100%";
+    // perspectiveCtr.style.position = "absolute";
+    // perspectiveCtr.style.display = "grid";
+    // perspectiveCtr.style.gridTemplateColumns = "repeat(12, 1fr)";
+    // perspectiveCtr.style.gridGap = "1rem";
+    // perspectiveCtr.style.padding = "0 2vw";
     // perspectiveCtr.classList.add("perspective-ctr");
 
     // while (scrollable.firstChild)
@@ -119,16 +120,17 @@ export const scrollbarInit = function ({
 
     // scrollable.insertBefore(perspectiveCtr, scrollable.firstChild);
     // const thumb = document.createElement("div");
-    thumb.style.width = "30px";
-    thumb.style.height = "30px";
-    thumb.style.borderRadius = "50%";
-    thumb.style.backgroundColor = styleGuide.colorScheme[colorTheme].accent;
-    thumb.style.pointerEvents = "initial";
-    thumb.style.position = "absolute";
-    thumb.style.transformOrigin = "top left";
-    thumb.style.top = "0";
-    thumb.style.left = "0";
-    thumb.style.cursor = "pointer";
+    // thumb.style.width = "30px";
+    // thumb.style.height = "30px";
+    // thumb.style.borderRadius = "50%";
+    // thumb.style.backgroundColor = styleGuide.colorScheme[colorTheme].accent;
+    // thumb.style.pointerEvents = "initial";
+    // thumb.style.position = "absolute";
+    // thumb.style.transformOrigin = "top left";
+    // thumb.style.top = "0";
+    // thumb.style.left = "0";
+    // thumb.style.cursor = "pointer";
+    // thumb.style.zIndex = 100;
     // perspectiveCtr.insertBefore(thumb, perspectiveCtr.firstChilds);
 
     scrollable.thumb = thumb;

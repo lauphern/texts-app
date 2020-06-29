@@ -47,6 +47,7 @@ const cssReset = colorTheme => css`
     text-rendering: optimizeSpeed;
     font-family: "Playfair Display", serif;
     color: ${styleGuide.colorScheme[colorTheme].text};
+    padding: 0 0 0 2vw;
   }
 
   /* Remove list styles on ul, ol elements with a class attribute */
