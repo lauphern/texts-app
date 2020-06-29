@@ -32,8 +32,6 @@ const Theme = ({ state }) => {
     if (data.isArchive)
       scrollbarInit({
         scrollableComponent: RefToMain.current,
-        colorTheme: state.theme.colorTheme,
-        fixedPos: RefToFixedPos.current,
         perspectiveCtr: RefToPerspectiveCtr.current,
         thumb: RefToThumb.current
       });
