@@ -150,6 +150,7 @@ export default {
         showOnPost: false,
       },
       colorTheme: "light",
+      doesUserHavePassword: false
     },
   },
   /**

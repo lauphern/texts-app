@@ -22,6 +22,8 @@ import { styleGuide } from "./styles/style-guide";
 const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
+  let currentRoute = state.router.link;
+  let { doesUserHavePassword } = state.theme;
 
   const RefToMain = useRef(null);
   const RefToFixedPos = useRef(null);
@@ -29,12 +31,19 @@ const Theme = ({ state }) => {
   const RefToThumb = useRef(null);
 
   useEffect(() => {
-    if (data.isArchive)
+    if (data.isArchive && currentRoute === "/hidden/" && doesUserHavePassword) {
       scrollbarInit({
         scrollableComponent: RefToMain.current,
         perspectiveCtr: RefToPerspectiveCtr.current,
-        thumb: RefToThumb.current
+        thumb: RefToThumb.current,
       });
+    } else if (data.isArchive && currentRoute !== "/hidden/") {
+      scrollbarInit({
+        scrollableComponent: RefToMain.current,
+        perspectiveCtr: RefToPerspectiveCtr.current,
+        thumb: RefToThumb.current,
+      });
+    }
   });
 
   return (
@@ -63,6 +72,10 @@ const Theme = ({ state }) => {
       <Main ref={RefToMain} colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
+          {/* TODO parece ser que tengo que hacer un handler para passwordProtectedPosts
+          https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/postType.ts
+          */}
+          <PasswordProtected when={currentRoute === "/hidden/"}>Enter password</PasswordProtected>
           <PerspectiveCtr when={data.isArchive} ref={RefToPerspectiveCtr}>
             <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
             <Track colorTheme={state.theme.colorTheme} />
@@ -118,6 +131,12 @@ const Main = styled.div(
 `
 );
 
+const PasswordProtected = styled.div`
+  background: rgba(255, 0, 0, 0.2);
+  height: 100vh;
+  width: 100vw;
+`;
+
 const FixedPos = styled.div`
   position: fixed;
   top: 0;
@@ -136,7 +155,8 @@ const PerspectiveCtr = styled.div`
   padding-right: 2vw;
 `;
 
-const Thumb = styled.div(props => `
+const Thumb = styled.div(
+  (props) => `
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -161,9 +181,11 @@ const Thumb = styled.div(props => `
     display: block;
     transition: all 0.15s;
   }
-`);
+`
+);
 
-const Track = styled.div(props => `
+const Track = styled.div(
+  (props) => `
   background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
   position: absolute;
   top: 0;
@@ -171,4 +193,5 @@ const Track = styled.div(props => `
   width: 1.5px;
   height: calc(100% - 10px);
   margin: 5px 0 0 4.25px;
-`);
+`
+);
