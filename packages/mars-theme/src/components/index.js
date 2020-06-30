@@ -26,21 +26,23 @@ const Theme = ({ state }) => {
   let currentRoute = state.router.link;
   let { doesUserHavePassword } = state.theme;
 
-  const RefToMain = useRef(null);
+  const RefToScrollable = useRef(null);
   const RefToFixedPos = useRef(null);
   const RefToPerspectiveCtr = useRef(null);
   const RefToThumb = useRef(null);
 
   useEffect(() => {
     if (data.isArchive && currentRoute === "/hidden/" && doesUserHavePassword) {
+      debugger;
       scrollbarInit({
-        scrollableComponent: RefToMain.current,
+        scrollableComponent: RefToScrollable.current,
         perspectiveCtr: RefToPerspectiveCtr.current,
         thumb: RefToThumb.current,
       });
     } else if (data.isArchive && currentRoute !== "/hidden/") {
+      debugger;
       scrollbarInit({
-        scrollableComponent: RefToMain.current,
+        scrollableComponent: RefToScrollable.current,
         perspectiveCtr: RefToPerspectiveCtr.current,
         thumb: RefToThumb.current,
       });
@@ -70,7 +72,7 @@ const Theme = ({ state }) => {
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
-      <Main ref={RefToMain} colorTheme={state.theme.colorTheme}>
+      <Main colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
           {/* TODO parece ser que tengo que hacer un handler para passwordProtectedPosts
@@ -79,11 +81,17 @@ const Theme = ({ state }) => {
           <PasswordProtected when={currentRoute === "/hidden/"}>
             Enter password
           </PasswordProtected>
-          <PerspectiveCtr when={data.isArchive} ref={RefToPerspectiveCtr}>
-            <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
-            <Track colorTheme={state.theme.colorTheme} />
-            <List />
-          </PerspectiveCtr>
+          <Scrollable
+            when={data.isArchive}
+            ref={RefToScrollable}
+            colorTheme={state.theme.colorTheme}
+          >
+            <PerspectiveCtr ref={RefToPerspectiveCtr}>
+              <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
+              <Track colorTheme={state.theme.colorTheme} />
+              <List />
+            </PerspectiveCtr>
+          </Scrollable>
           <Post when={data.isPostType} />
           <PageError />
         </Switch>
@@ -125,10 +133,27 @@ const Main = styled.div(
   ${styleGuide.grid12Col()}*/
   }
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+  // overflow-x: hidden;
+  // overflow-y: scroll;
+  width: 100%;
+  height: calc(100% - 15vh);
+  position: relative;
+  // -webkit-overflow-scrolling: touch;
+`
+);
+
+const Scrollable = styled.div(
+  (props) => `
+  ${
+    "" /* display: flex;
+  justify-content: center; 
+  ${styleGuide.grid12Col()}*/
+  }
+  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   overflow-x: hidden;
   overflow-y: scroll;
   width: 100%;
-  height: calc(100% - 15vh);
+  height: 100%;
   position: relative;
   -webkit-overflow-scrolling: touch;
 `

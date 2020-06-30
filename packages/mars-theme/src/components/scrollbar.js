@@ -45,8 +45,8 @@ export const scrollbarInit = function ({
   // The point of this function is to update the thumb's geometry to reflect
   // the amount of overflow.
   function updateSize(scrollable) {
-    scrollable.style.width = "";
-    scrollable.style.width = `${getComputedStyle(scrollable).width}`;
+    // scrollable.style.width = "";
+    // scrollable.style.width = `${getComputedStyle(scrollable).width}`;
 
     let thumb = scrollable.thumb;
     let viewport = scrollable.getBoundingClientRect();

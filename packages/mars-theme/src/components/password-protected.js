@@ -32,12 +32,14 @@ export default connect(PasswordProtected);
 
 const Modal = styled.div(
   (props) => `
-  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+  // background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+  background-color: rgba(255,0,0,0.2);
   height: 85vh;
   width: 100vw;
   position: fixed;
   top: 15vh;
   left: 0;
+  right: 0;
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 1fr 2fr 1fr;
