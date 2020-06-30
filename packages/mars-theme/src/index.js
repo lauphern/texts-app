@@ -150,7 +150,7 @@ export default {
         showOnPost: false,
       },
       colorTheme: "light",
-      doesUserHavePassword: false
+      doesUserHavePassword: false,
     },
   },
   /**
@@ -166,10 +166,13 @@ export default {
         state.theme.isMobileMenuOpen = false;
       },
       toggleColorTheme: ({ state }) => {
-        if(state.theme.colorTheme === "light") state.theme.colorTheme = "dark"
-        else state.theme.colorTheme = "light"
+        if (state.theme.colorTheme === "light") state.theme.colorTheme = "dark";
+        else state.theme.colorTheme = "light";
       },
-      // TODO añadir aquí para toggleThemeMode (dark y light) y toggleLanguage (esp y eng)
+      savePassword: ({ state }) => (pw) => {
+        // state.theme.doesUserHavePassword = true;
+        state.source.params.password = pw;
+      },
       init: ({ libraries }) => {
         // Add custom handlers to wp-source
         libraries.source.handlers.push(

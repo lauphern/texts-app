@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Header from "./header";
+import PasswordProtected from "./password-protected";
 import List from "./list";
 import Post from "./post";
 import Loading from "./loading";
@@ -75,7 +76,9 @@ const Theme = ({ state }) => {
           {/* TODO parece ser que tengo que hacer un handler para passwordProtectedPosts
           https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/postType.ts
           */}
-          <PasswordProtected when={currentRoute === "/hidden/"}>Enter password</PasswordProtected>
+          <PasswordProtected when={currentRoute === "/hidden/"}>
+            Enter password
+          </PasswordProtected>
           <PerspectiveCtr when={data.isArchive} ref={RefToPerspectiveCtr}>
             <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
             <Track colorTheme={state.theme.colorTheme} />
@@ -130,12 +133,6 @@ const Main = styled.div(
   -webkit-overflow-scrolling: touch;
 `
 );
-
-const PasswordProtected = styled.div`
-  background: rgba(255, 0, 0, 0.2);
-  height: 100vh;
-  width: 100vw;
-`;
 
 const FixedPos = styled.div`
   position: fixed;
