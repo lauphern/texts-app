@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Header from "./header";
@@ -21,6 +21,7 @@ import { styleGuide } from "./styles/style-guide";
  */
 
 const Theme = ({ state }) => {
+  let [forceReRender, setForceReRender] = useState(false);
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   let currentRoute = state.router.link;
@@ -32,20 +33,27 @@ const Theme = ({ state }) => {
   const RefToThumb = useRef(null);
 
   useEffect(() => {
-    if (data.isArchive && currentRoute === "/hidden/" && doesUserHavePassword) {
-      debugger;
-      scrollbarInit({
-        scrollableComponent: RefToScrollable.current,
-        perspectiveCtr: RefToPerspectiveCtr.current,
-        thumb: RefToThumb.current,
-      });
-    } else if (data.isArchive && currentRoute !== "/hidden/") {
-      debugger;
-      scrollbarInit({
-        scrollableComponent: RefToScrollable.current,
-        perspectiveCtr: RefToPerspectiveCtr.current,
-        thumb: RefToThumb.current,
-      });
+    let isHiddenCurrentRoute = currentRoute === "/hidden/";
+    let areAllComponentsMounted = !RefToScrollable.current || !RefToFixedPos || !RefToPerspectiveCtr || !RefToThumb;
+    //TODO make it work for "/hidden/", after you put the password in
+    if(data.isArchive) {
+      if(!isHiddenCurrentRoute && areAllComponentsMounted) {
+        setForceReRender(true)
+        return
+      }
+      if (isHiddenCurrentRoute && doesUserHavePassword) {
+        scrollbarInit({
+          scrollableComponent: RefToScrollable.current,
+          perspectiveCtr: RefToPerspectiveCtr.current,
+          thumb: RefToThumb.current,
+        });
+      } else if (!isHiddenCurrentRoute) {
+        scrollbarInit({
+          scrollableComponent: RefToScrollable.current,
+          perspectiveCtr: RefToPerspectiveCtr.current,
+          thumb: RefToThumb.current,
+        });
+      }
     }
   });
 

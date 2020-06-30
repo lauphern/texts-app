@@ -17,16 +17,24 @@ const PasswordProtected = ({ state, actions }) => {
       <Dialog colorTheme={state.theme.colorTheme}>
         <p>Enter password:</p>
         <Input
-          type="text"
+          type="password"
           value={inputVal}
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
         {showErrorMsg && <ErrorMsg>The input field cannot be empty</ErrorMsg>}
+        {/* {`${process.env.PACKAGES_STATE_API == 12345678}`}
+        {`procces.env variable${process.env.PASSWORD}`} */}
         <Btn onClick={handleSubmit}>Send</Btn>
       </Dialog>
     </Modal>
   );
 };
+
+
+//TODO check that the password is correct!
+// Puedo guardar la contraseña en un env file (y environment variables en vercel), y comparar aqui
+//2. añadir un mensaje que para conseguir la contraseña hay que contactar a la escritora
+
 
 export default connect(PasswordProtected);
 
