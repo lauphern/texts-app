@@ -94,7 +94,7 @@ const publicPostsHandler = {
 
     if (publicCat) {
       const publicCatId = publicCat.id;
-      // 2. We retrieve the comments from the category "public"
+      // 2. We retrieve the posts from the category "public"
       const response2 = await api.get({
         endpoint: `/posts`,
         params: { _embed: true, categories: `${publicCatId}`, per_page: 30 },

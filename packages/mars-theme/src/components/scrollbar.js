@@ -115,6 +115,7 @@ export const scrollbarInit = function ({
         });
     }
 
+    //Add event listeners to drag the thumb
     scrollable.thumb.addEventListener("mousedown", dragStart.bind(scrollable), {
       passive: true,
     });
