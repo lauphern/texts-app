@@ -170,7 +170,7 @@ export default {
         else state.theme.colorTheme = "light";
       },
       savePassword: ({ state }) => (pw) => {
-        // state.theme.doesUserHavePassword = true;
+        state.theme.doesUserHavePassword = true;
         state.source.params.password = pw;
       },
       init: ({ libraries }) => {
