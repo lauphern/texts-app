@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import List from "./list";
+import ContactForm from "./contact-form"
 
 // This component is for both posts and pages
 
@@ -13,6 +14,9 @@ const Post = ({ state, actions, libraries }) => {
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
+
+  //If the current url is "/sobre-mi/", we want to show the ContactForm component
+  const currentUrl = state.router.link
 
   /**
    * Once the post has loaded in the DOM, prefetch both the
@@ -26,6 +30,7 @@ const Post = ({ state, actions, libraries }) => {
 
   // Load the post, but only if the data is ready.
   return data.isReady ? (
+    <>
     <Container>
       <div>
         <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
@@ -36,7 +41,10 @@ const Post = ({ state, actions, libraries }) => {
       <Content>
         <Html2React html={post.content.rendered} />
       </Content>
+      
     </Container>
+    {currentUrl === "/sobre-mi/" && <ContactForm />}
+    </>
   ) : null;
 };
 
