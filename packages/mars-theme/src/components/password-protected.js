@@ -3,8 +3,6 @@ import { connect, styled, fetch } from "frontity";
 
 import { styleGuide } from "./styles/style-guide";
 
-//TODO use axios to make the call to the serverless function, and see how I can use an environment variable (maybe it's easier in deployment)
-
 const PasswordProtected = ({ state, actions }) => {
   const rootUrl = state.frontity.url;
 
@@ -15,41 +13,46 @@ const PasswordProtected = ({ state, actions }) => {
     if (inputVal == "") setErrorMsg("Tienes que introducir una contraseña");
     else {
       // Using a Vercel serverless function
-      fetch(`${rootUrl}/api/compare-passwords`).then((res) => {
-        debugger;
-        actions.theme.savePassword(inputVal);
-      });
+      fetch(`${rootUrl}/api/compare-passwords?pw=${inputVal}`, {
+        mode: "cors",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.doPasswordsMatch)
+            setErrorMsg(
+              "La contraseña no es correcta. Para adquirir la contraseña, debes contactar con la autora a través del formulario de contacto."
+            );
+          else if (data.doPasswordsMatch) {
+            actions.theme.savePassword(inputVal);
+          }
+        })
+        .catch((err) => {
+          setErrorMsg("¡Algo salió mal!");
+        });
     }
   };
 
   return (
     <Modal colorTheme={state.theme.colorTheme}>
       <Dialog colorTheme={state.theme.colorTheme}>
-        <p>Enter password:</p>
+        <p>Introduzca la contraseña:</p>
         <Input
           type="password"
           value={inputVal}
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
-        {/* {`${process.env.PACKAGES_STATE_API == 12345678}`}
-        {`procces.env variable${process.env.PASSWORD}`} */}
-        <Btn onClick={handleSubmit}>Send</Btn>
+        <Btn onClick={handleSubmit}>Enviar</Btn>
       </Dialog>
     </Modal>
   );
 };
 
-//TODO check that the password is correct!
-// Puedo guardar la contraseña en un env file (y environment variables en vercel), y comparar aqui
-//2. añadir un mensaje que para conseguir la contraseña hay que contactar a la escritora
-
 export default connect(PasswordProtected);
 
 const Modal = styled.div(
   (props) => `
-  // background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  background-color: rgba(255,0,0,0.2);
+  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   height: 85vh;
   width: 100vw;
   position: fixed;
