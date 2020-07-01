@@ -5,7 +5,7 @@ const ContactForm = ({ state }) => {
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
-    comment: "",
+    message: "",
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -15,8 +15,7 @@ const ContactForm = ({ state }) => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    // fetch(`${rootUrl}/api/send-email`, {
-    fetch(`http://localhost:3000/api/send-email`, {
+    fetch(`${rootUrl}/api/send-email`, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32,11 +31,11 @@ const ContactForm = ({ state }) => {
       <h3>Contacta conmigo</h3>
       <Form onSubmit={""}>
         <Label htmlFor="name">Nombre:</Label>
-        <Input name="name" type="text" onChange={handleInputChange} />
+        <Input name="name" type="text" onChange={handleInputChange} required/>
         <Label htmlFor="email">Email:</Label>
-        <Input name="email" type="text" onChange={handleInputChange} />
-        <Label htmlFor="comment">Comentario:</Label>
-        <Textarea name="comment" maxLength="200" onChange={handleInputChange} />
+        <Input name="email" type="email" onChange={handleInputChange}  required/>
+        <Label htmlFor="message">Comentario:</Label>
+        <Textarea name="message" maxLength="200" onChange={handleInputChange}  required/>
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <SubmitBtn type="submit">Enviar</SubmitBtn>
       </Form>
