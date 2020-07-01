@@ -83,9 +83,6 @@ const Theme = ({ state }) => {
       <Main colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
-          {/* TODO parece ser que tengo que hacer un handler para passwordProtectedPosts
-          https://github.com/frontity/frontity/blob/dev/packages/wp-source/src/libraries/handlers/postType.ts
-          */}
           <PasswordProtected when={currentRoute === "/hidden/"}>
             Enter password
           </PasswordProtected>
@@ -141,12 +138,13 @@ const Main = styled.div(
   ${styleGuide.grid12Col()}*/
   }
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  // overflow-x: hidden;
-  // overflow-y: scroll;
+  
   width: 100%;
   height: calc(100% - 15vh);
   position: relative;
   // -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `
 );
 

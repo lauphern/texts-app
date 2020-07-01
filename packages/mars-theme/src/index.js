@@ -54,11 +54,19 @@ const removeCategoryBaseHandler = {
         Object.assign(currentPageData, newPageData);
       }
     } catch (e) {
-      // 2 ---------> If it's not a category, check with pages (it works for posts too) <---------
-      const pageHandler = libraries.source.handlers.find(
-        (handler) => handler.name == "page"
-      );
-      await pageHandler.func({ link, params, state, libraries });
+      try {
+        // 2 ---------> If it's not a category, check with posts <---------
+        const postHandler = libraries.source.handlers.find(
+          (handler) => handler.name == "post"
+        );
+        await postHandler.func({ link, params, state, libraries });
+      } catch (e) {
+        // 3 ---------> If it's not a category, check with pages <---------
+        const pageHandler = libraries.source.handlers.find(
+          (handler) => handler.name == "page"
+        );
+        await pageHandler.func({ link, params, state, libraries });
+      }
     }
   },
 };

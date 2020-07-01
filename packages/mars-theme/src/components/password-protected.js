@@ -14,7 +14,7 @@ const PasswordProtected = ({ state, actions }) => {
     else {
       // Using a Vercel serverless function
       fetch(`${rootUrl}/api/compare-passwords?pw=${inputVal}`, {
-        mode: "cors",
+        mode: "no-cors",
       })
         .then((res) => res.json())
         .then((data) => {
