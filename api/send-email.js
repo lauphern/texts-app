@@ -1,8 +1,8 @@
 const transporter = require("./send-email-config/config");
 
 module.exports = (req, res) => {
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader("Access-Control-Allow-Credentials", true);
+  // res.setHeader("Access-Control-Allow-Origin", "*");
 
   const mailOptions = {
     from: process.env.EMAIL,

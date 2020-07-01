@@ -20,16 +20,16 @@ const ContactForm = ({ state }) => {
     e.preventDefault();
     fetch(`${rootUrl}/api/send-email`, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: formValues,
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formValues),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setSuccessMsg(data.message);
         else setErrorMsg("¡Vaya! Algo salió mal.");
       })
-      .catch((err) => setErrorMsg("¡Vaya! Algo salió mal."));
+      .catch((err) => {setErrorMsg("¡Vaya! Algo salió mal.")});
   };
 
   return (
