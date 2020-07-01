@@ -3,7 +3,7 @@ import { connect, styled, fetch } from "frontity";
 
 const ContactForm = ({ state }) => {
   const rootUrl = state.frontity.url;
-  
+
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -11,6 +11,7 @@ const ContactForm = ({ state }) => {
   });
 
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleInputChange = (e) =>
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -24,7 +25,10 @@ const ContactForm = ({ state }) => {
       body: formValues,
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        if (data.success) setSuccessMsg(data.message);
+        else setErrorMsg("¡Vaya! Algo salió mal.");
+      })
       .catch((err) => setErrorMsg("¡Vaya! Algo salió mal."));
   };
 
@@ -33,12 +37,23 @@ const ContactForm = ({ state }) => {
       <h3>Contacta conmigo</h3>
       <Form onSubmit={sendEmail}>
         <Label htmlFor="name">Nombre:</Label>
-        <Input name="name" type="text" onChange={handleInputChange} required/>
+        <Input name="name" type="text" onChange={handleInputChange} required />
         <Label htmlFor="email">Email:</Label>
-        <Input name="email" type="email" onChange={handleInputChange}  required/>
+        <Input
+          name="email"
+          type="email"
+          onChange={handleInputChange}
+          required
+        />
         <Label htmlFor="message">Comentario:</Label>
-        <Textarea name="message" maxLength="200" onChange={handleInputChange}  required/>
+        <Textarea
+          name="message"
+          maxLength="200"
+          onChange={handleInputChange}
+          required
+        />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <SubmitBtn type="submit">Enviar</SubmitBtn>
       </Form>
     </div>
@@ -59,6 +74,11 @@ const SubmitBtn = styled.button``;
 
 const ErrorMsg = styled.p`
   color: red;
+  font-size: 0.8;
+  font-family: "News Cycle";
+`;
+
+const SuccessMsg = styled.p`
   font-size: 0.8;
   font-family: "News Cycle";
 `;
