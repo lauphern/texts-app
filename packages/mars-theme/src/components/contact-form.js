@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { connect, styled, fetch } from "frontity";
 
 const ContactForm = ({ state }) => {
+  const rootUrl = state.frontity.url;
+  
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
