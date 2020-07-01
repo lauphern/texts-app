@@ -29,7 +29,7 @@ const ContactForm = ({ state }) => {
   return (
     <div>
       <h3>Contacta conmigo</h3>
-      <Form onSubmit={""}>
+      <Form onSubmit={sendEmail}>
         <Label htmlFor="name">Nombre:</Label>
         <Input name="name" type="text" onChange={handleInputChange} required/>
         <Label htmlFor="email">Email:</Label>
