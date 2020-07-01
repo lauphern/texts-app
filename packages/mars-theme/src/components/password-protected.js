@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, fetch } from "frontity";
 
 import { styleGuide } from "./styles/style-guide";
 
+//TODO use axios to make the call to the serverless function, and see how I can use an environment variable (maybe it's easier in deployment)
+
 const PasswordProtected = ({ state, actions }) => {
+  const rootUrl = state.frontity.url;
+
   let [inputVal, setInputVal] = useState("");
-  let [showErrorMsg, setShowErrorMsg] = useState(false);
+  let [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = () => {
-    if (inputVal == "") setShowErrorMsg(true);
-    else actions.theme.savePassword(inputVal);
+    if (inputVal == "") setErrorMsg("Tienes que introducir una contraseña");
+    else {
+      // Using a Vercel serverless function
+      fetch(`${rootUrl}/api/compare-passwords`).then((res) => {
+        debugger;
+        actions.theme.savePassword(inputVal);
+      });
+    }
   };
 
   return (
@@ -21,7 +31,7 @@ const PasswordProtected = ({ state, actions }) => {
           value={inputVal}
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
-        {showErrorMsg && <ErrorMsg>The input field cannot be empty</ErrorMsg>}
+        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {/* {`${process.env.PACKAGES_STATE_API == 12345678}`}
         {`procces.env variable${process.env.PASSWORD}`} */}
         <Btn onClick={handleSubmit}>Send</Btn>
@@ -30,11 +40,9 @@ const PasswordProtected = ({ state, actions }) => {
   );
 };
 
-
 //TODO check that the password is correct!
 // Puedo guardar la contraseña en un env file (y environment variables en vercel), y comparar aqui
 //2. añadir un mensaje que para conseguir la contraseña hay que contactar a la escritora
-
 
 export default connect(PasswordProtected);
 
