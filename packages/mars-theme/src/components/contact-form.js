@@ -36,16 +36,16 @@ const ContactForm = ({ state }) => {
     <div>
       <h3>Contacta conmigo</h3>
       <Form onSubmit={sendEmail}>
-        <Label htmlFor="name">Nombre:</Label>
+        <Label htmlFor="name">Nombre <span>(Requerido)</span>:</Label>
         <Input name="name" type="text" onChange={handleInputChange} required />
-        <Label htmlFor="email">Email:</Label>
+        <Label htmlFor="email">Email <span>(Requerido)</span>:</Label>
         <Input
           name="email"
           type="email"
           onChange={handleInputChange}
           required
         />
-        <Label htmlFor="message">Comentario:</Label>
+        <Label htmlFor="message">Comentario <span>(Requerido)</span>:</Label>
         <Textarea
           name="message"
           maxLength="200"
@@ -62,15 +62,25 @@ const ContactForm = ({ state }) => {
 
 export default connect(ContactForm);
 
-const Form = styled.form``;
+const Form = styled.form`
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  flex-direction: column;
+`;
 
-const Label = styled.label``;
+const Label = styled.label`
+  & span {
+    font-size: 0.7em;
+  }
+`;
 
 const Input = styled.input``;
 
 const Textarea = styled.textarea``;
 
-const SubmitBtn = styled.button``;
+const SubmitBtn = styled.button`
+  align-self: baseline;
+`;
 
 const ErrorMsg = styled.p`
   color: red;
