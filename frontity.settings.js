@@ -48,7 +48,8 @@ const settings = {
         "source": {
           "api": process.env.PACKAGES_STATE_API,
           "params": {
-            "per_page": 30
+            "per_page": 30,
+            "force": true
           }
         }
       }

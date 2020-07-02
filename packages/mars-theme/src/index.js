@@ -19,6 +19,17 @@ const removeCategoryBaseHandler = {
   // In our case, we only have categories and pages/posts
   pattern: "/(.*)?/:slug",
   func: async ({ link, route, params, state, libraries }) => {
+    // IMPORTANT: this if statement is a control measure for the hidden route
+    // It was fetching the posts before the password was provided by the user
+    // And, in the savePassword action I tried to force the rewrite of the posts
+    // To have the content of the password protected post and it wasn't working
+    // TODO the object that wasn't updating was in state.source.post (an array of posts)
+    // maybe that is updated through another method and not fetch (I checked that fetch
+    // was getting the right params: force and password)
+    // So my (possibly temporary) solution is to unable the fetching of the posts from the hidden category
+    // until the user provides the right password
+    // It could be related to this (link to pull request in the issue): https://github.com/frontity/frontity/issues/340
+    if(!state.theme.doesUserHavePassword && route === "/hidden/") return
     // 1 ---------> try with category <---------
     try {
       // FIRST, we retrieve the category handler
@@ -41,6 +52,7 @@ const removeCategoryBaseHandler = {
         params: { 0: "category", slug: params.slug },
         state,
         libraries,
+        force: true
       };
       await categoryHandler.func(args);
 
@@ -59,7 +71,7 @@ const removeCategoryBaseHandler = {
         const postHandler = libraries.source.handlers.find(
           (handler) => handler.name == "post"
         );
-        await postHandler.func({ link, params, state, libraries });
+        await postHandler.func({ link, params, state, libraries, force: true });
       } catch (e) {
         // 3 ---------> If it's not a category, check with pages <---------
         const pageHandler = libraries.source.handlers.find(
@@ -99,9 +111,10 @@ const publicPostsHandler = {
     const categories = await response1.json();
 
     const publicCat = categories.find((cat) => cat.slug === "public");
-
+    
     if (publicCat) {
       const publicCatId = publicCat.id;
+      
       // 2. We retrieve the posts from the category "public"
       const response2 = await api.get({
         endpoint: `/posts`,
@@ -177,9 +190,10 @@ export default {
         if (state.theme.colorTheme === "light") state.theme.colorTheme = "dark";
         else state.theme.colorTheme = "light";
       },
-      savePassword: ({ state }) => (pw) => {
-        state.theme.doesUserHavePassword = true;
+      savePassword: ({ state, actions }) => async (pw) => {
         state.source.params.password = pw;
+        state.theme.doesUserHavePassword = true;
+        await actions.source.fetch("/hidden/", {force: true})
       },
       init: ({ libraries }) => {
         // Add custom handlers to wp-source
