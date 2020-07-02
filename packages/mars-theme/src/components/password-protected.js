@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, styled, fetch } from "frontity";
+import { useTransition, animated } from "react-spring";
 
 import { styleGuide } from "./styles/style-guide";
 
@@ -8,6 +9,13 @@ const PasswordProtected = ({ state, actions }) => {
 
   let [inputVal, setInputVal] = useState("");
   let [errorMsg, setErrorMsg] = useState("");
+  let [show, setShow] = useState(false);
+
+  const transitions = useTransition(show, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   const handleSubmit = () => {
     if (inputVal == "") setErrorMsg("Tienes que introducir una contraseña");
@@ -32,25 +40,30 @@ const PasswordProtected = ({ state, actions }) => {
     }
   };
 
-  return (
-    <Modal colorTheme={state.theme.colorTheme}>
-      <Dialog colorTheme={state.theme.colorTheme}>
-        <p>Introduzca la contraseña:</p>
-        <Input
-          type="password"
-          value={inputVal}
-          onChange={(e) => setInputVal(e.currentTarget.value)}
-        />
-        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
-        <Btn onClick={handleSubmit}>Enviar</Btn>
-      </Dialog>
-    </Modal>
+  useEffect(() => setShow(true), []);
+
+  return transitions.map(
+    ({ item, key, props }) =>
+      item && (
+        <Modal colorTheme={state.theme.colorTheme} key={key} style={props}>
+          <Dialog colorTheme={state.theme.colorTheme}>
+            <p>Introduzca la contraseña:</p>
+            <Input
+              type="password"
+              value={inputVal}
+              onChange={(e) => setInputVal(e.currentTarget.value)}
+            />
+            {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+            <Btn onClick={handleSubmit}>Enviar</Btn>
+          </Dialog>
+        </Modal>
+      )
   );
 };
 
 export default connect(PasswordProtected);
 
-const Modal = styled.div(
+const Modal = styled(animated.div)(
   (props) => `
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   height: 85vh;

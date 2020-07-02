@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, styled } from "frontity";
-import Link from "./link";
+import { useTransition, animated } from "react-spring";
 import List from "./list";
-import ContactForm from "./contact-form"
+import ContactForm from "./contact-form";
 
 // This component is for both posts and pages
 
@@ -16,7 +16,15 @@ const Post = ({ state, actions, libraries }) => {
   const Html2React = libraries.html2react.Component;
 
   //If the current url is "/sobre-mi/", we want to show the ContactForm component
-  const currentUrl = state.router.link
+  const currentUrl = state.router.link;
+
+  let [show, setShow] = useState(false);
+
+  const transitions = useTransition(show, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   /**
    * Once the post has loaded in the DOM, prefetch both the
@@ -24,39 +32,43 @@ const Post = ({ state, actions, libraries }) => {
    * the home page, everything is ready and it loads instantly.
    */
   useEffect(() => {
+    setShow(true);
     actions.source.fetch("/");
     List.preload();
   }, []);
 
   // Load the post, but only if the data is ready.
-  return data.isReady ? (
-    <>
-    <Container>
-      <div>
-        <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-      </div>
-      
-      {/* Render the content using the Html2React component so the HTML is processed
-       by the processors we included in the libraries.html2react.processors array. */}
-      <Content>
-        <Html2React html={post.content.rendered} />
-      </Content>
-      
-    </Container>
-    {currentUrl === "/sobre-mi/" && <ContactForm />}
-    </>
-  ) : null;
+  return data.isReady
+    ? transitions.map(
+        ({ item, key, props }) =>
+          item && (
+            <AnimatedDiv key={key} style={props}>
+              <Container>
+                <div>
+                  <Title
+                    dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                  />
+                </div>
+                <Content>
+                  <Html2React html={post.content.rendered} />
+                </Content>
+              </Container>
+              {currentUrl === "/sobre-mi/" && <ContactForm />}
+            </AnimatedDiv>
+          )
+      )
+    : null;
 };
 
 export default connect(Post);
+
+const AnimatedDiv = styled(animated.div)``;
 
 const Container = styled.div`
   margin: 5vw 20vw 10vw 18vw;
 `;
 
-const Title = styled.h2`
-`;
-
+const Title = styled.h2``;
 
 /**
  * This component is the parent of the `content.rendered` HTML. We can use nested
@@ -67,7 +79,8 @@ const Content = styled.div`
     line-height: 2;
     margin-bottom: 1rem;
   }
-  ${'' /* color: rgba(12, 17, 43, 0.8);
+  ${
+    "" /* color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
 
   * {
@@ -109,11 +122,13 @@ const Content = styled.div`
   a {
     color: rgb(31, 56, 197);
     text-decoration: underline;
-  } */}
+  } */
+  }
 
   /* Input fields styles */
 
-  ${'' /* input[type="text"],
+  ${
+    "" /* input[type="text"],
   input[type="email"],
   input[type="url"],
   input[type="tel"],
@@ -158,7 +173,8 @@ const Content = styled.div`
     border-radius: 4px;
     color: #fff;
     background-color: #1f38c5;
-  } */}
+  } */
+  }
 
   /* WordPress Core Align Classes */
 
