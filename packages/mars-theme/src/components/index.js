@@ -35,7 +35,6 @@ const Theme = ({ state }) => {
   useEffect(() => {
     let isHiddenCurrentRoute = currentRoute === "/hidden/";
     let areAllComponentsMounted = !RefToScrollable.current || !RefToFixedPos || !RefToPerspectiveCtr || !RefToThumb;
-    //TODO make it work for "/hidden/", after you put the password in
     if(data.isArchive) {
       if(!isHiddenCurrentRoute && areAllComponentsMounted) {
         setForceReRender(true)
@@ -83,7 +82,7 @@ const Theme = ({ state }) => {
       <Main colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
-          <PasswordProtected when={currentRoute === "/hidden/"}>
+          <PasswordProtected when={currentRoute === "/hidden/" && !doesUserHavePassword}>
             Enter password
           </PasswordProtected>
           <Scrollable
