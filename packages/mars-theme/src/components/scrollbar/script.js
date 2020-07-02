@@ -1,5 +1,4 @@
 
-//TODO arreglar que no se ve el contenido detras de la navbar
 export const scrollbarInit = function ({
   scrollableComponent,
   perspectiveCtr,

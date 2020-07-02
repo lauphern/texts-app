@@ -55,7 +55,7 @@ const articleCSS = props => css`
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  animation: ${slideUp} 2s ease;
+  animation: ${slideUp} 1s ease;
 
   & > a,
   & > a:visited {

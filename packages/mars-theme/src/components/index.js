@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Global, css, connect, styled, Head } from "frontity";
+import { Global, connect, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Header from "./header";
 import PasswordProtected from "./password-protected";
@@ -7,11 +7,16 @@ import List from "./list";
 import Post from "./post";
 import Loading from "./loading";
 import Title from "./title";
+import Scrollable from "./scrollbar/scrollable";
+import PerspectiveCtr from "./scrollbar/perspective-ctr";
+import FixedPos from "./scrollbar/fixed-pos";
+import Thumb from "./scrollbar/thumb";
+import Track from "./scrollbar/track";
 import PageError from "./page-error";
 import FontFace from "./styles/font-faces";
 import globalStyles from "./styles/global-styles";
 
-import { scrollbarInit } from "./scrollbar";
+import { scrollbarInit } from "./scrollbar/script";
 
 import { styleGuide } from "./styles/style-guide";
 
@@ -34,11 +39,15 @@ const Theme = ({ state }) => {
 
   useEffect(() => {
     let isHiddenCurrentRoute = currentRoute === "/hidden/";
-    let areAllComponentsMounted = !RefToScrollable.current || !RefToFixedPos || !RefToPerspectiveCtr || !RefToThumb;
-    if(data.isArchive) {
-      if(!isHiddenCurrentRoute && areAllComponentsMounted) {
-        setForceReRender(true)
-        return
+    let areAllComponentsMounted =
+      !RefToScrollable.current ||
+      !RefToFixedPos ||
+      !RefToPerspectiveCtr ||
+      !RefToThumb;
+    if (data.isArchive) {
+      if (!isHiddenCurrentRoute && areAllComponentsMounted) {
+        setForceReRender(true);
+        return;
       }
       if (isHiddenCurrentRoute && doesUserHavePassword) {
         scrollbarInit({
@@ -73,9 +82,9 @@ const Theme = ({ state }) => {
       <FixedPos ref={RefToFixedPos}></FixedPos>
 
       {/* Add the header of the site. */}
-      <HeadContainer >
+      <HeadContainer>
         <Header />
-        <HeadBackground colorTheme={state.theme.colorTheme}/>
+        <HeadBackground colorTheme={state.theme.colorTheme} />
       </HeadContainer>
 
       {/* Add the main section. It renders a different component depending
@@ -83,7 +92,9 @@ const Theme = ({ state }) => {
       <Main colorTheme={state.theme.colorTheme}>
         <Switch>
           <Loading when={data.isFetching} />
-          <PasswordProtected when={currentRoute === "/hidden/" && !doesUserHavePassword}>
+          <PasswordProtected
+            when={currentRoute === "/hidden/" && !doesUserHavePassword}
+          >
             Enter password
           </PasswordProtected>
           <Scrollable
@@ -107,19 +118,7 @@ const Theme = ({ state }) => {
 
 export default connect(Theme);
 
-const HeadContainer = styled.div(
-  (props) => `
-  ${
-    "" /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; */
-  }
-  ${
-    "" /* display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 1rem; */
-  }
+const HeadContainer = styled.div`
   ${styleGuide.grid12Col()}
   align-items: center;
   position: sticky;
@@ -129,10 +128,10 @@ const HeadContainer = styled.div(
   padding: 0.75rem 2vw 0.75rem 0vw;
   height: 15vh;
   z-index: 2;
-`
-);
+`;
 
-const HeadBackground = styled.div(props =>`
+const HeadBackground = styled.div(
+  (props) => `
   position: fixed;
   top: 0;
   left: 0;
@@ -142,99 +141,16 @@ const HeadBackground = styled.div(props =>`
   z-index: -1;
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   box-shadow: 0px 0px 15px rgba(0,0,0,.2);
-`);
+`
+);
 
 const Main = styled.div(
   (props) => `
-  ${
-    "" /* display: flex;
-  justify-content: center; 
-  ${styleGuide.grid12Col()}*/
-  }
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  
   width: 100%;
   height: calc(100% - 15vh);
   position: relative;
-  // -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
   overflow-y: scroll;
-`
-);
-
-const Scrollable = styled.div(
-  (props) => `
-  ${
-    "" /* display: flex;
-  justify-content: center; 
-  ${styleGuide.grid12Col()}*/
-  }
-  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
-  overflow-x: hidden;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  -webkit-overflow-scrolling: touch;
-`
-);
-
-const FixedPos = styled.div`
-  position: fixed;
-  top: 0;
-  width: 1px;
-  height: 1px;
-  z-index: 1;
-`;
-
-const PerspectiveCtr = styled.div`
-  perspective-origin: top left;
-  transform-style: preserve-3d;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 1rem;
-  padding-right: 2vw;
-  padding-bottom: 10vw;
-`;
-
-const Thumb = styled.div(
-  (props) => `
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
-  pointer-events: initial;
-  position: absolute;
-  transform-origin: top left;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-
-  &:hover:before {
-    transform: scale(1.2);
-  }
-
-  &:before{
-    content: "";
-    background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: block;
-    transition: all 0.15s;
-  }
-`
-);
-
-const Track = styled.div(
-  (props) => `
-  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1.5px;
-  height: calc(100% - 10px);
-  margin: 5px 0 0 4.25px;
 `
 );
