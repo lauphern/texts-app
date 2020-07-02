@@ -16,7 +16,7 @@ import PageError from "./page-error";
 import FontFace from "./styles/font-faces";
 import globalStyles from "./styles/global-styles";
 
-import { scrollbarInit } from "./scrollbar/script";
+import { setRootHeight, scrollbarInit } from "./scrollbar/script";
 
 import { styleGuide } from "./styles/style-guide";
 
@@ -38,6 +38,7 @@ const Theme = ({ state }) => {
   const RefToThumb = useRef(null);
 
   useEffect(() => {
+    setRootHeight()
     let isHiddenCurrentRoute = currentRoute === "/hidden/";
     let areAllComponentsMounted =
       !RefToScrollable.current ||

@@ -1,3 +1,7 @@
+export const setRootHeight = function() {
+  //We need to set the height of the root element to 100% for every route, otherwise you cannot scroll
+  document.querySelector("#root").style.height = "100%";
+}
 
 export const scrollbarInit = function ({
   scrollableComponent,
@@ -10,9 +14,7 @@ export const scrollbarInit = function ({
 
   let dragging = false;
   let lastY = 0;
-
-  document.querySelector("#root").style.height = "100%";
-
+  
   function dragStart(event) {
     dragging = true;
     this.style.pointerEvents = "none";
