@@ -16,6 +16,15 @@ import PlayfairDisplaySemiBoldItalic from "../../fonts/playfair-display/Playfair
 import NewsCycleRegular from "../../fonts/news-cycle/NewsCycle-Regular.ttf";
 import NewsCycleBold from "../../fonts/news-cycle/NewsCycle-Bold.ttf";
 
+import SourceSansProLight from "../../fonts/source-sans-pro/SourceSansPro-Light.ttf";
+import SourceSansProLightItalic from "../../fonts/source-sans-pro/SourceSansPro-LightItalic.ttf";
+import SourceSansProRegular from "../../fonts/source-sans-pro/SourceSansPro-Regular.ttf";
+import SourceSansProItalic from "../../fonts/source-sans-pro/SourceSansPro-Italic.ttf";
+import SourceSansProSemiBold from "../../fonts/source-sans-pro/SourceSansPro-SemiBold.ttf";
+import SourceSansProSemiBoldItalic from "../../fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.ttf";
+import SourceSansProBold from "../../fonts/source-sans-pro/SourceSansPro-Bold.ttf";
+import SourceSansProBoldItalic from "../../fonts/source-sans-pro/SourceSansPro-BoldItalic.ttf";
+
 const fonts = [
   PlayfairDisplayRegular,
   PlayfairDisplayItalic,
@@ -30,7 +39,15 @@ const fonts = [
   PlayfairDisplayBlack,
   PlayfairDisplayBlackItalic,
   NewsCycleRegular,
-  NewsCycleBold
+  NewsCycleBold,
+  SourceSansProLight,
+  SourceSansProLightItalic,
+  SourceSansProRegular,
+  SourceSansProItalic,
+  SourceSansProSemiBold,
+  SourceSansProSemiBoldItalic,
+  SourceSansProBold,
+  SourceSansProBoldItalic
 ];
 
 const FontFace = ({ state }) => {
@@ -134,6 +151,62 @@ const FontFace = ({ state }) => {
           font-weight: 700;
           font-display: "swap";
           src: url(${fonts[13]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: normal;
+          font-weight: 300;
+          font-display: "swap";
+          src: url(${fonts[14]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: italic;
+          font-weight: 300;
+          font-display: "swap";
+          src: url(${fonts[15]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: normal;
+          font-weight: 400;
+          font-display: "swap";
+          src: url(${fonts[16]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: italic;
+          font-weight: 400;
+          font-display: "swap";
+          src: url(${fonts[17]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: normal;
+          font-weight: 600;
+          font-display: "swap";
+          src: url(${fonts[18]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: italic;
+          font-weight: 600;
+          font-display: "swap";
+          src: url(${fonts[19]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: normal;
+          font-weight: 700;
+          font-display: "swap";
+          src: url(${fonts[20]}) format("truetype");
+        }
+        @font-face {
+          font-family: "Source Sans Pro";
+          font-style: italic;
+          font-weight: 700;
+          font-display: "swap";
+          src: url(${fonts[21]}) format("truetype");
         }
       `}
     />

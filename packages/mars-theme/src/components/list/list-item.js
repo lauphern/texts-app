@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, keyframes, css } from "frontity";
 import Link from "../link";
 
 import { styleGuide } from "../styles/style-guide";
@@ -14,17 +14,20 @@ import { styleGuide } from "../styles/style-guide";
 const Item = ({ state, item, alignSelf, isItLastItem }) => {
   return (
     <>
-    <Article alignSelf={alignSelf} colorTheme={state.theme.colorTheme}>
-      <Link link={item.link}>
-        <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
-      
-      {/* If the post has an excerpt (short summary text), we render it */}
-      {item.excerpt && (
-        <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
-      )}
-      </Link>
-    </Article>
-    {!isItLastItem && <Divider colorTheme={state.theme.colorTheme}/>}
+      <article css={articleCSS({ alignSelf, colorTheme: state.theme.colorTheme })}>
+        <Link link={item.link}>
+          <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
+        </Link>
+        <Link link={item.link}>
+          {/* If the post has an excerpt (short summary text), we render it */}
+          {item.excerpt && (
+            <Excerpt
+              dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }}
+            />
+          )}
+        </Link>
+      </article>
+      {!isItLastItem && <Divider colorTheme={state.theme.colorTheme} />}
     </>
   );
 };
@@ -32,14 +35,27 @@ const Item = ({ state, item, alignSelf, isItLastItem }) => {
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
 
-const Article = styled.article(props => `
+const slideUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const articleCSS = props => css`
   width: 70%;
-  height: 60vh;
   overflow: hidden;
   margin: 2rem 0;
   align-self: ${props.alignSelf};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  animation: ${slideUp} 2s ease;
 
   & > a,
   & > a:visited {
@@ -50,26 +66,20 @@ const Article = styled.article(props => `
       color: ${styleGuide.colorScheme[props.colorTheme].text};
     }
   }
-`);
-
-const Title = styled.h2`
-  ${"" /* font-size: 2rem;
-  color: rgba(12, 17, 43);
-  margin: 0;
-  padding-top: 24px;
-  padding-bottom: 8px;
-  box-sizing: border-box; */}
 `;
+
+const Title = styled.h2``;
 
 const Excerpt = styled.div`
   ${"" /* line-height: 1.6em;
   color: rgba(12, 17, 43, 0.8); */}
 `;
 
-const Divider = styled.div(props => `
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  margin: 0 auto;
+const Divider = styled.div(
+  (props) => `
+  height: 1.5px;
+  width: 200px;
+  margin: 20vh auto;
   background-color: ${styleGuide.colorScheme[props.colorTheme].secondaryText}
-`);
+`
+);

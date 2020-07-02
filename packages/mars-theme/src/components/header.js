@@ -57,6 +57,8 @@ const Description = styled.h2`
   font-style: italic;
   font-weight: 400;
   font-size: 1.2rem;
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
   ${"" /* margin: 0;
   margin-bottom: 16px; */}
 `;

@@ -51,16 +51,10 @@ const Post = ({ state, actions, libraries }) => {
 export default connect(Post);
 
 const Container = styled.div`
-  width: 800px;
-  margin: 0;
-  padding: 24px;
+  margin: 5vw 20vw 10vw 18vw;
 `;
 
 const Title = styled.h2`
-  margin: 0;
-  margin-top: 24px;
-  margin-bottom: 8px;
-  color: rgba(12, 17, 43);
 `;
 
 
@@ -69,6 +63,10 @@ const Title = styled.h2`
  * selectors to style that HTML.
  */
 const Content = styled.div`
+  & p {
+    line-height: 2;
+    margin-bottom: 1rem;
+  }
   ${'' /* color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
 

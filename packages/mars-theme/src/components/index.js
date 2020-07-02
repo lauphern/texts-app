@@ -73,8 +73,9 @@ const Theme = ({ state }) => {
       <FixedPos ref={RefToFixedPos}></FixedPos>
 
       {/* Add the header of the site. */}
-      <HeadContainer colorTheme={state.theme.colorTheme}>
+      <HeadContainer >
         <Header />
+        <HeadBackground colorTheme={state.theme.colorTheme}/>
       </HeadContainer>
 
       {/* Add the main section. It renders a different component depending
@@ -123,11 +124,25 @@ const HeadContainer = styled.div(
   align-items: center;
   position: sticky;
   top: 0;
-  padding: 0.75rem 2vw 0.75rem 0;
-  background-color: ${styleGuide.colorScheme[props.colorTheme].navBackground};
+  left: 0;
+  width: 98vw;
+  padding: 0.75rem 2vw 0.75rem 0vw;
   height: 15vh;
+  z-index: 2;
 `
 );
+
+const HeadBackground = styled.div(props =>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 15vh;
+  z-index: -1;
+  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+  box-shadow: 0px 0px 15px rgba(0,0,0,.2);
+`);
 
 const Main = styled.div(
   (props) => `
@@ -180,6 +195,7 @@ const PerspectiveCtr = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 1rem;
   padding-right: 2vw;
+  padding-bottom: 10vw;
 `;
 
 const Thumb = styled.div(

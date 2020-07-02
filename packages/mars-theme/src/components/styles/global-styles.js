@@ -1,7 +1,7 @@
 import { css } from "frontity";
 import { styleGuide } from "./style-guide";
 
-const cssReset = colorTheme => css`
+const cssReset = (colorTheme) => css`
   ${"" /* I have adapted the reset stylesheet from: https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */}
   /* Box sizing rules */
   *,
@@ -34,7 +34,8 @@ const cssReset = colorTheme => css`
     margin: 0;
   }
 
-  html, body {
+  html,
+  body {
     height: 100%;
     overflow: hidden;
   }
@@ -79,7 +80,7 @@ const cssReset = colorTheme => css`
   button,
   textarea,
   select {
-    font: inherit;
+    font-family: "News Cycle", sans-serif;
   }
 
   /* Remove all animations and transitions for people that prefer not to see them */
@@ -93,26 +94,30 @@ const cssReset = colorTheme => css`
   }
 `;
 
-const title = css`
+const title = (colorTheme) => css`
   h2 {
     font-size: ${styleGuide.textStyles.title.fontSize};
     font-weight: ${styleGuide.textStyles.title.fontWeight};
+    color: ${styleGuide.colorScheme[colorTheme].text};
+    margin: 2rem 0;
   }
 `;
 
 const copy = css`
   p {
+    font-family: "Source Sans Pro", sans-serif;
     font-size: ${styleGuide.textStyles.copy.fontSize};
-    font-height: ${styleGuide.textStyles.copy.lineHeight};
+    line-height: ${styleGuide.textStyles.copy.lineHeight};
   }
 `;
 
-const nav = colorTheme => css`
+const nav = (colorTheme) => css`
   nav a,
   nav a:visited {
     font-size: ${styleGuide.textStyles.navItem.fontSize};
     font-weight: ${styleGuide.textStyles.navItem.fontWeight};
     color: ${styleGuide.colorScheme[colorTheme].accent};
+    font-family: "Source Sans Pro", sans-serif;
 
     &:hover {
       color: ${styleGuide.colorScheme[colorTheme].text};
@@ -124,6 +129,7 @@ const nav = colorTheme => css`
   }
 `;
 
-const globalStyles = colorTheme => css([cssReset(colorTheme), title, copy, nav(colorTheme)]);
+const globalStyles = (colorTheme) =>
+  css([cssReset(colorTheme), title(colorTheme), copy, nav(colorTheme)]);
 
 export default globalStyles;

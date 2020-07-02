@@ -9,16 +9,16 @@ export const styleGuide = {
   colorScheme: {
     light: {
       // accent: "#FFD4B2",
-      accent: "rgb(219,124,178)",
-      navBackground: "rgba(255, 255, 255, 0.8)",
+      // accent: "rgb(219,124,178)",
+      accent: "#B6A6FF",
       background: "#FFF",
       text: "#000",
       secondaryText: "#c4c4c4",
     },
     dark: {
       // accent: "#FFD4B2",
-      accent: "rgb(219,124,178)",
-      navBackground: "rgba(50, 50, 50, 0.8)",
+      // accent: "rgb(219,124,178)",
+      accent: "#B6A6FF",
       background: "rgb(50,50,50)",
       text: "#FFF",
       secondaryText: "#c4c4c4",
@@ -31,7 +31,7 @@ export const styleGuide = {
     },
     copy: {
       fontSize: "16px",
-      lineHeight: 1.5,
+      lineHeight: 1.7,
     },
     navItem: {
       fontSize: "1.5rem",
