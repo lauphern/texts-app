@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect, styled, keyframes, css } from "frontity";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated, config } from "react-spring";
+import VisibilitySensor from "react-visibility-sensor";
 import Link from "../link";
 
 import { styleGuide } from "../styles/style-guide";
@@ -13,24 +14,39 @@ import { styleGuide } from "../styles/style-guide";
  * - Author: name of author and published date
  */
 const Item = ({ state, item, alignSelf, isItLastItem }) => {
-  const myTest = useSpring({opacity: 1, from: {opacity: 0}})
+  let [show, setShow] = useState(false);
+
+  const fadeIn = useSpring({
+    config: config.slow,
+    opacity: show ? 1 : 0,
+    transform: show ? "translateY(0)" : "translateY(80px)",
+  });
+
+  const onChange = (isVisible) => {
+    isVisible && setShow(isVisible);
+  };
+
   return (
     <>
-      {/* <article css={articleCSS({ alignSelf, colorTheme: state.theme.colorTheme })}> */}
-      <Article alignself={alignSelf} colortheme={state.theme.colorTheme} style={myTest}>
-        <Link link={item.link}>
-          <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
-        </Link>
-        <Link link={item.link}>
-          {/* If the post has an excerpt (short summary text), we render it */}
-          {item.excerpt && (
-            <Excerpt
-              dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }}
-            />
-          )}
-        </Link>
-      </Article>
-      {/* </article> */}
+      <VisibilitySensor onChange={onChange}>
+        <Article
+          alignself={alignSelf}
+          colortheme={state.theme.colorTheme}
+          style={fadeIn}
+        >
+          <Link link={item.link}>
+            <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
+          </Link>
+          <Link link={item.link}>
+            {/* If the post has an excerpt (short summary text), we render it */}
+            {item.excerpt && (
+              <Excerpt
+                dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }}
+              />
+            )}
+          </Link>
+        </Article>
+      </VisibilitySensor>
       {!isItLastItem && <Divider colorTheme={state.theme.colorTheme} />}
     </>
   );
@@ -39,11 +55,12 @@ const Item = ({ state, item, alignSelf, isItLastItem }) => {
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
 
-const Article = styled(animated.article)(props => `
+const Article = styled(animated.article)(
+  (props) => `
   width: 70%;
   overflow: hidden;
   margin: 2rem 0;
-  ${'' /* align-self: ${props => props.alignSelf}; */}
+  ${"" /* align-self: ${props => props.alignSelf}; */}
   align-self: ${props.alignself};
   display: flex;
   align-items: flex-start;
@@ -59,47 +76,12 @@ const Article = styled(animated.article)(props => `
       color: ${styleGuide.colorScheme[props.colortheme].text};
     }
   }
-`);
-
-// const slideUp = keyframes`
-//   from {
-//     opacity: 0;
-//     transform: translateY(80px);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// `;
-
-// const articleCSS = props => css`
-//   width: 70%;
-//   overflow: hidden;
-//   margin: 2rem 0;
-//   align-self: ${props.alignSelf};
-//   display: flex;
-//   align-items: flex-start;
-//   flex-direction: column;
-//   justify-content: center;
-//   animation: ${slideUp} 1s ease;
-
-//   & > a,
-//   & > a:visited {
-//     color: ${styleGuide.colorScheme[props.colorTheme].secondaryText};
-//     transition: all 0.15s;
-
-//     &:hover {
-//       color: ${styleGuide.colorScheme[props.colorTheme].text};
-//     }
-//   }
-// `;
+`
+);
 
 const Title = styled.h2``;
 
-const Excerpt = styled.div`
-  ${"" /* line-height: 1.6em;
-  color: rgba(12, 17, 43, 0.8); */}
-`;
+const Excerpt = styled.div``;
 
 const Divider = styled.div(
   (props) => `
