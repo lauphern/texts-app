@@ -47,7 +47,7 @@ const Container = styled.section`
   margin: 0;
   padding: 24px;
   list-style: none; */}
-  grid-area: 1 / 3 / 2 / 13;
+  grid-area: 1 / 2 / 2 / 13;
   display: flex;
   flex-direction: column;
 `;

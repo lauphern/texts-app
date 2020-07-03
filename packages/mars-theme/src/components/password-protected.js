@@ -67,10 +67,9 @@ export default connect(PasswordProtected);
 
 const Modal = styled(animated.div)`
   background-color: ${styleGuide.colorScheme.light.background};
-  height: 85vh;
+  height: 100%;
   width: 100vw;
-  position: fixed;
-  top: 15vh;
+  position: relative;
   left: 0;
   right: 0;
   display: grid;
@@ -88,6 +87,7 @@ const Dialog = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 5rem;
+  margin-left: -2vw;
 
   & * {
     margin-top: 1rem;
@@ -96,10 +96,19 @@ const Dialog = styled.div`
   & > *:nth-child(1) {
     margin-top: 0;
   }
+
+  @media (max-width: 560px) {
+    padding: 0.75rem;
+    width: 90vw;
+  }
 `;
 
 const Disclaimer = styled.p`
-  font-weight: ${styleGuide.textStyles.copy.fontWeight}
+  font-weight: ${styleGuide.textStyles.copy.fontWeight};
+
+  @media (max-width: 560px) {
+    text-align: center;
+  }
 `;
 
 const Label = styled.label`

@@ -43,8 +43,8 @@ const Post = ({ state, actions, libraries }) => {
     //Cleanup for the color theme: if the user selects the dark color theme,
     //when they visit another route it doesn't matter if they don't switch back to the light color theme before
     //it will be set as the light color theme by default
-    return () => actions.theme.toggleColorTheme({forceLight: true})
-  }, [currentUrl])
+    return () => actions.theme.toggleColorTheme({ forceLight: true });
+  }, [currentUrl]);
 
   // Load the post, but only if the data is ready.
   return data.isReady
@@ -84,11 +84,17 @@ export default connect(Post);
 
 const AnimatedDiv = styled(animated.div)`
   margin: 5vw 20vw 10vw 18vw;
+
+  @media (max-width: 560px) {
+    margin: 5vw 10vw 10vw 8vw;
+  }
 `;
 
 const Container = styled.div``;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  margin: 2.25rem 0 1.5rem 0;
+`;
 
 /**
  * This component is the parent of the `content.rendered` HTML. We can use nested
@@ -131,6 +137,12 @@ const Content = styled.div`
     .alignleft {
       float: left;
       margin-right: 24px;
+    }
+  }
+  @media (max-width: 560px) {
+    & > div {
+      display: flex !important;
+      flex-direction: column-reverse !important;
     }
   }
 `;

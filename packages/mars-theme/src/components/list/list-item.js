@@ -44,6 +44,7 @@ const Item = ({ state, item, alignSelf, isItLastItem }) => {
               />
             )}
           </Link>
+          <StyledLink link={item.link}>Continuar leyendo...</StyledLink>
         </Article>
       </VisibilitySensor>
       {!isItLastItem && <Divider />}
@@ -59,7 +60,6 @@ const Article = styled(animated.article)(
   width: 70%;
   overflow: hidden;
   margin: 2rem 0;
-  ${"" /* align-self: ${props => props.alignSelf}; */}
   align-self: ${props.alignself};
   display: flex;
   align-items: flex-start;
@@ -75,18 +75,54 @@ const Article = styled(animated.article)(
       color: ${styleGuide.colorScheme.light.text};
     }
   }
+
+  @media (max-width: 900px) {
+    align-self: start;
+    width: 90%;
+
+    &:nth-of-type(1) {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  }
 `
 );
 
-const Title = styled.h2``;
+const Title = styled.h2`
+    @media (max-width: 560px) {
+      font-size: 1.5rem;
+      margin: 0.75rem 0;
+    }
+`;
 
 const Excerpt = styled.div`
-  font-weight: ${styleGuide.textStyles.copy.fontWeight}
+  font-weight: ${styleGuide.textStyles.copy.fontWeight};
+
+  @media (max-width: 560px) {
+    color: ${styleGuide.colorScheme.light.text};
+    font-size: 12px;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: ${styleGuide.colorScheme.light.text} !important;
+  font-style: italic;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 2rem;
+
+  @media (max-width: 560px) {
+    margin-top: 0.75rem;
+  }
 `;
 
 const Divider = styled.div`
   height: 1px;
-  width: 200px;
+  width: 50vw;
   margin: 20vh auto;
-  background-color: ${styleGuide.colorScheme.light.secondaryText}
+  background-color: ${styleGuide.colorScheme.light.secondaryText};
+
+  @media (max-width: 900px) {
+    margin: 5vh 0;
+    width: 50%;
+  }
 `;

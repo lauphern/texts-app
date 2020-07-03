@@ -70,11 +70,6 @@ const cssReset = (colorTheme) => css`
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
-  article > * + * {
-    margin-top: 1em;
-  }
-
   /* Inherit fonts for inputs and buttons */
   input,
   button,

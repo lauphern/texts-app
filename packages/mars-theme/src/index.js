@@ -187,7 +187,6 @@ export default {
         state.theme.isMobileMenuOpen = false;
       },
       toggleColorTheme: ({ state }) => ({forceLight}) => {
-        debugger
         if(forceLight) state.theme.colorTheme = "light";
         else if (state.theme.colorTheme === "light") state.theme.colorTheme = "dark";
         else state.theme.colorTheme = "light";

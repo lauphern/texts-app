@@ -131,6 +131,11 @@ const HeadContainer = styled.div`
   width: 98vw;
   padding: 0.75rem 2vw 0.75rem 0vw;
   z-index: 2;
+
+  @media (max-width: 560px) {
+    ${'' /* padding: 0.75rem 5vw 0.75rem 5vw; */}
+    align-items: center;
+  }
 `;
 
 const HeadBackground = styled.div(

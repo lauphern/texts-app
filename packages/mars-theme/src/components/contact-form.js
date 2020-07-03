@@ -33,7 +33,7 @@ const ContactForm = ({ state }) => {
   };
 
   return (
-    <div>
+    <Container>
       <h3>Contacta conmigo</h3>
       <Form onSubmit={sendEmail}>
         <Label htmlFor="name">Nombre <span>(Requerido)</span>:</Label>
@@ -56,11 +56,15 @@ const ContactForm = ({ state }) => {
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <SubmitBtn type="submit">Enviar</SubmitBtn>
       </Form>
-    </div>
+    </Container>
   );
 };
 
 export default connect(ContactForm);
+
+const Container = styled.div`
+  margin-top: 2.5rem;
+`;
 
 const Form = styled.form`
   font-family: "Source Sans Pro", sans-serif;
