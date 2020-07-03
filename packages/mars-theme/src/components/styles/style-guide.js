@@ -13,7 +13,8 @@ export const styleGuide = {
       accent: "#B6A6FF",
       background: "#FFF",
       text: "#000",
-      secondaryText: "#c4c4c4",
+      // secondaryText: "#c4c4c4",
+      secondaryText: "rgb(140,140,140)",
     },
     dark: {
       // accent: "#FFD4B2",
@@ -32,10 +33,11 @@ export const styleGuide = {
     copy: {
       fontSize: "16px",
       lineHeight: 1.7,
+      fontWeight: 300,
     },
     navItem: {
       fontSize: "1.5rem",
-      fontWeight: "bold",
+      fontWeight: 300,
     },
   },
   //We use the grid12Col function to add these styles to several elements, since using a class would cause some trouble

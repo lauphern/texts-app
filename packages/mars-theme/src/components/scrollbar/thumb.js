@@ -2,12 +2,11 @@ import { styled } from "frontity"
 
 import { styleGuide } from "../styles/style-guide"
 
-const Thumb = styled.div(
-  (props) => `
+const Thumb = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
+  background-color: ${styleGuide.colorScheme.light.accent};
   pointer-events: initial;
   position: absolute;
   transform-origin: top left;
@@ -21,14 +20,13 @@ const Thumb = styled.div(
 
   &:before{
     content: "";
-    background-color: ${styleGuide.colorScheme[props.colorTheme].accent};
+    background-color: ${styleGuide.colorScheme.light.accent};
     width: 10px;
     height: 10px;
     border-radius: 50%;
     display: block;
     transition: all 0.15s;
   }
-`
-);
+`;
 
 export default Thumb;

@@ -186,8 +186,10 @@ export default {
       closeMobileMenu: ({ state }) => {
         state.theme.isMobileMenuOpen = false;
       },
-      toggleColorTheme: ({ state }) => {
-        if (state.theme.colorTheme === "light") state.theme.colorTheme = "dark";
+      toggleColorTheme: ({ state }) => ({forceLight}) => {
+        debugger
+        if(forceLight) state.theme.colorTheme = "light";
+        else if (state.theme.colorTheme === "light") state.theme.colorTheme = "dark";
         else state.theme.colorTheme = "light";
       },
       savePassword: ({ state, actions }) => async (pw) => {

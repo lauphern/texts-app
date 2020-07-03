@@ -31,7 +31,6 @@ const Item = ({ state, item, alignSelf, isItLastItem }) => {
       <VisibilitySensor onChange={onChange}>
         <Article
           alignself={alignSelf}
-          colortheme={state.theme.colorTheme}
           style={fadeIn}
         >
           <Link link={item.link}>
@@ -47,7 +46,7 @@ const Item = ({ state, item, alignSelf, isItLastItem }) => {
           </Link>
         </Article>
       </VisibilitySensor>
-      {!isItLastItem && <Divider colorTheme={state.theme.colorTheme} />}
+      {!isItLastItem && <Divider />}
     </>
   );
 };
@@ -69,11 +68,11 @@ const Article = styled(animated.article)(
 
   & > a,
   & > a:visited {
-    color: ${styleGuide.colorScheme[props.colortheme].secondaryText};
+    color: ${styleGuide.colorScheme.light.secondaryText};
     transition: all 0.15s;
 
     &:hover {
-      color: ${styleGuide.colorScheme[props.colortheme].text};
+      color: ${styleGuide.colorScheme.light.text};
     }
   }
 `
@@ -81,13 +80,13 @@ const Article = styled(animated.article)(
 
 const Title = styled.h2``;
 
-const Excerpt = styled.div``;
+const Excerpt = styled.div`
+  font-weight: ${styleGuide.textStyles.copy.fontWeight}
+`;
 
-const Divider = styled.div(
-  (props) => `
-  height: 1.5px;
+const Divider = styled.div`
+  height: 1px;
   width: 200px;
   margin: 20vh auto;
-  background-color: ${styleGuide.colorScheme[props.colorTheme].secondaryText}
-`
-);
+  background-color: ${styleGuide.colorScheme.light.secondaryText}
+`;

@@ -4,6 +4,8 @@ import { useTransition, animated } from "react-spring";
 import List from "./list";
 import ContactForm from "./contact-form";
 
+import { styleGuide } from "./styles/style-guide";
+
 // This component is for both posts and pages
 
 const Post = ({ state, actions, libraries }) => {
@@ -37,6 +39,13 @@ const Post = ({ state, actions, libraries }) => {
     List.preload();
   }, []);
 
+  useEffect(() => {
+    //Cleanup for the color theme: if the user selects the dark color theme,
+    //when they visit another route it doesn't matter if they don't switch back to the light color theme before
+    //it will be set as the light color theme by default
+    return () => actions.theme.toggleColorTheme({forceLight: true})
+  }, [currentUrl])
+
   // Load the post, but only if the data is ready.
   return data.isReady
     ? transitions.map(
@@ -44,6 +53,17 @@ const Post = ({ state, actions, libraries }) => {
           item && (
             <AnimatedDiv key={key} style={props}>
               <Container>
+                {currentUrl !== "/sobre-mi/" && (
+                  <ToggleContainer>
+                    <ToggleTheme
+                      onClick={actions.theme.toggleColorTheme}
+                      colorTheme={state.theme.colorTheme}
+                    >
+                      <CircleToggle colorTheme={state.theme.colorTheme} />
+                    </ToggleTheme>
+                    <TextToggleTheme>Modo lectura</TextToggleTheme>
+                  </ToggleContainer>
+                )}
                 <div>
                   <Title
                     dangerouslySetInnerHTML={{ __html: post.title.rendered }}
@@ -75,10 +95,10 @@ const Title = styled.h2``;
  * selectors to style that HTML.
  */
 const Content = styled.div`
-
   & p {
     line-height: 2;
     margin-bottom: 1rem;
+    font-weight: ${styleGuide.textStyles.copy.fontWeight};
   }
 
   & > div:nth-of-type(1) {
@@ -87,8 +107,6 @@ const Content = styled.div`
     grid-column-gap: 2rem;
     align-items: center;
   }
-  
-  
 
   /* WordPress Core Align Classes */
 
@@ -115,4 +133,63 @@ const Content = styled.div`
       margin-right: 24px;
     }
   }
+`;
+
+// Examples followed, with some changes:
+// https://codepen.io/halvves/pen/ExjxaKj
+// https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch
+
+const ToggleContainer = styled.div`
+  ${"" /* grid-area: 2 / 11 / 3 / 13;
+  justify-self: end; */}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ToggleTheme = styled.div(
+  (props) => `
+  background-color: ${
+    props.colorTheme === "light" ? "rgb(100,100,100)" : "white"
+  };
+  position: relative;
+  height: 20px;
+  width: 40px;
+  border-radius: 12.5px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: ${
+    props.colorTheme === "light"
+      ? `4px 4px 4px 0px black inset,
+  -4px -4px 4px 0px rgba(100,100,100,0.2) inset;`
+      : `4px 4px 4px 0px #d1d9e6 inset,
+  -4px -4px 4px 0px #ffffff inset;`
+  }
+`
+);
+
+const CircleToggle = styled.div(
+  (props) => `
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: ${
+    props.colorTheme === "light"
+      ? `0px 3px 8px 1px black,
+  0px 5px 5px 0px rgba(255,255,255,0.5) inset`
+      : `0px 3px 8px 1px rgba(0,0,0,0.5),
+  0px 5px 5px 0px rgba(255,255,255,0.5) inset`
+  };
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  top: 2.5px;
+  transition: left 0.25s;
+  left: ${props.colorTheme === "light" ? "2.5px" : "22.5px"}
+`
+);
+
+const TextToggleTheme = styled.p`
+  font-size: 0.8rem;
+  font-family: "News Cycle", sans-serif;
+  text-align: center;
 `;

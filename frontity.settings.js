@@ -27,7 +27,7 @@ const settings = {
               "/"
             ],
             [
-              "Zona prohibida",
+              "Zona secreta",
               "/hidden/"
             ],
             [

@@ -28,7 +28,7 @@ const PasswordProtected = ({ state, actions }) => {
         .then((data) => {
           if (!data.doPasswordsMatch)
             setErrorMsg(
-              "La contraseña no es correcta. Para adquirir la contraseña, debes contactar con la autora a través del formulario de contacto."
+              "La contraseña no es correcta."
             );
           else if (data.doPasswordsMatch) {
             actions.theme.savePassword(inputVal);
@@ -45,12 +45,14 @@ const PasswordProtected = ({ state, actions }) => {
   return transitions.map(
     ({ item, key, props }) =>
       item && (
-        <Modal colorTheme={state.theme.colorTheme} key={key} style={props}>
-          <Dialog colorTheme={state.theme.colorTheme}>
-            <p>Introduzca la contraseña:</p>
+        <Modal key={key} style={props}>
+          <Dialog>
+            <Disclaimer>En esta zona, la autora publicará sus textos más personales y los que todavía están en desarrollo. Necesitas una contraseña para acceder a este contenido. Para adquirirla, debes contactar con la autora a través del formulario de contacto.</Disclaimer>
+            <Label colorTheme={state.theme.colorTheme} >Introduzca la contraseña:</Label>
             <Input
               type="password"
               value={inputVal}
+              placeholder="contraseña"
               onChange={(e) => setInputVal(e.currentTarget.value)}
             />
             {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
@@ -63,9 +65,8 @@ const PasswordProtected = ({ state, actions }) => {
 
 export default connect(PasswordProtected);
 
-const Modal = styled(animated.div)(
-  (props) => `
-  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+const Modal = styled(animated.div)`
+  background-color: ${styleGuide.colorScheme.light.background};
   height: 85vh;
   width: 100vw;
   position: fixed;
@@ -75,12 +76,10 @@ const Modal = styled(animated.div)(
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 1fr 2fr 1fr;
-`
-);
+`;
 
-const Dialog = styled.div(
-  (props) => `
-  background-color: ${styleGuide.colorScheme[props.colorTheme].background};
+const Dialog = styled.div`
+  background-color: ${styleGuide.colorScheme.light.background};
   border-radius: 3px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
   grid-area: 2 / 2 / 3 / 3;
@@ -88,10 +87,29 @@ const Dialog = styled.div(
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`
-);
+  padding: 5rem;
 
-const Input = styled.input``;
+  & * {
+    margin-top: 1rem;
+  }
+
+  & > *:nth-child(1) {
+    margin-top: 0;
+  }
+`;
+
+const Disclaimer = styled.p`
+  font-weight: ${styleGuide.textStyles.copy.fontWeight}
+`;
+
+const Label = styled.label`
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 2rem;
+`;
+
+const Input = styled.input`
+  text-align: center;
+`;
 
 const Btn = styled.button``;
 

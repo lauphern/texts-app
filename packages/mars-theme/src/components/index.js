@@ -101,11 +101,10 @@ const Theme = ({ state }) => {
           <Scrollable
             when={data.isArchive}
             ref={RefToScrollable}
-            colorTheme={state.theme.colorTheme}
           >
             <PerspectiveCtr ref={RefToPerspectiveCtr}>
-              <Thumb ref={RefToThumb} colorTheme={state.theme.colorTheme} />
-              <Track colorTheme={state.theme.colorTheme} />
+              <Thumb ref={RefToThumb} />
+              <Track />
               <List />
             </PerspectiveCtr>
           </Scrollable>
