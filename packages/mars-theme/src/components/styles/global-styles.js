@@ -129,7 +129,25 @@ const nav = (colorTheme) => css`
   }
 `;
 
+const input = css`
+  input, textarea {
+    padding: 0.3rem 1.5rem;
+    margin-top: 1rem;
+  }
+`;
+
+const btn = (colorTheme) => css`
+  button {
+    background-color: ${styleGuide.colorScheme[colorTheme].accent};
+    border-radius: 3px;
+    border: none;
+    padding: 0.3rem 1.5rem;
+    margin-top: 1rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
+  }
+`;
+
 const globalStyles = (colorTheme) =>
-  css([cssReset(colorTheme), title(colorTheme), copy, nav(colorTheme)]);
+  css([cssReset(colorTheme), title(colorTheme), copy, nav(colorTheme), input, btn(colorTheme)]);
 
 export default globalStyles;
