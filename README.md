@@ -1,6 +1,6 @@
 # Personal website for a writer: Cristina
 
-You can find the online website here: [Cristina N.](https://cristina-escritora.vercel.app/).
+You can find the online website here: [Cristina N.](https://cristina-escritora.vercel.app/)
 
 **This app was created for the Frontity contest presented at JSNation Live 2020**
 
@@ -22,5 +22,5 @@ You can find the online website here: [Cristina N.](https://cristina-escritora.v
 
 ### Deployment
 
-I used Vercel for deployment. I also created a couple of *serverless functions* in Vercel to create custom endpoints.
+I used [Vercel](http://vercel.com/) for deployment. I also created a couple of *serverless functions* in Vercel to create custom endpoints.
 
