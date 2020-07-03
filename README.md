@@ -20,6 +20,9 @@ You can find the online website here: [Cristina N.](https://cristina-escritora.v
 * Emotion (included in Frontity)
 * Fetch (included in Frontity)
 
+### UI design
+* Figma
+
 ### Deployment
 
 I used [Vercel](http://vercel.com/) for deployment. I also created a couple of *serverless functions* in Vercel to create custom endpoints.
