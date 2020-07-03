@@ -139,7 +139,7 @@ const Content = styled.div`
       margin-right: 24px;
     }
   }
-  @media (max-width: 560px) {
+  @media (max-width: 700px) {
     & > div {
       display: flex !important;
       flex-direction: column-reverse !important;
