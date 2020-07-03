@@ -43,10 +43,6 @@ const List = ({ state }) => {
 export default connect(List);
 
 const Container = styled.section`
-  ${"" /* width: 800px;
-  margin: 0;
-  padding: 24px;
-  list-style: none; */}
   grid-area: 1 / 2 / 2 / 13;
   display: flex;
   flex-direction: column;

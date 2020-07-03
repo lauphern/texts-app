@@ -8,17 +8,12 @@
 export const styleGuide = {
   colorScheme: {
     light: {
-      // accent: "#FFD4B2",
-      // accent: "rgb(219,124,178)",
       accent: "#B6A6FF",
       background: "#FFF",
       text: "#000",
-      // secondaryText: "#c4c4c4",
       secondaryText: "rgb(140,140,140)",
     },
     dark: {
-      // accent: "#FFD4B2",
-      // accent: "rgb(219,124,178)",
       accent: "#B6A6FF",
       background: "rgb(50,50,50)",
       text: "#FFF",

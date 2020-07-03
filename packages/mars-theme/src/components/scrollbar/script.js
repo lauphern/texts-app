@@ -54,18 +54,14 @@ export const scrollbarInit = function ({
   // The point of this function is to update the thumb's geometry to reflect
   // the amount of overflow.
   function updateSize(scrollable) {
-    // scrollable.style.width = "";
-    // scrollable.style.width = `${getComputedStyle(scrollable).width}`;
 
     let thumb = scrollable.thumb;
     let viewport = scrollable.getBoundingClientRect();
     let scrollHeight = scrollable.scrollHeight;
     let maxScrollTop = scrollHeight - viewport.height;
-    // let thumbHeight = Math.pow(viewport.height, 2) / scrollHeight;
     let thumbHeight = thumb.getBoundingClientRect().height;
     let maxTopOffset = viewport.height - thumbHeight;
     thumb.scaling = maxTopOffset / maxScrollTop;
-    // thumb.style.height = `${thumbHeight}px`;
 
     if (scrollable.isIOS) {
       thumb.nextElementSibling.style.marginTop = `-${thumbHeight}px`;
@@ -106,7 +102,6 @@ export const scrollbarInit = function ({
 
     // We are on Safari, where we need to use the sticky trick!
     if (getComputedStyle(scrollable).webkitOverflowScrolling) {
-      //TODO ver que esto esta bien
       scrollable.isIOS = true;
       thumb.style.right = "";
       thumb.style.left = "100%";

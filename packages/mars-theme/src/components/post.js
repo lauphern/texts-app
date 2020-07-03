@@ -152,8 +152,6 @@ const Content = styled.div`
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch
 
 const ToggleContainer = styled.div`
-  ${"" /* grid-area: 2 / 11 / 3 / 13;
-  justify-self: end; */}
   display: flex;
   flex-direction: column;
   align-items: center;

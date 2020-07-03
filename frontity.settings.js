@@ -12,8 +12,6 @@ const settings = {
       "description": "Historias en las que no ocurre nada"
     },
     "source": {
-      // "homepage": "/home",
-      // "postsPage": "/posts-page",
     },
   },
   "packages": [
