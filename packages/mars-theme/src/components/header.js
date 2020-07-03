@@ -31,13 +31,13 @@ const Container = styled.div`
 const Title = styled.h1`
   font-style: italic;
   font-weight: 800;
-  font-size: 2.5rem;
+  font-size: 2rem;
 `;
 
 const Description = styled.h2`
   font-style: italic;
   font-weight: ${styleGuide.textStyles.copy.fontWeight};
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
 `;

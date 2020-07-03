@@ -16,7 +16,7 @@ import PageError from "./page-error";
 import FontFace from "./styles/font-faces";
 import globalStyles from "./styles/global-styles";
 
-import { setRootHeight, scrollbarInit } from "./scrollbar/script";
+import { setHeights, scrollbarInit } from "./scrollbar/script";
 
 import { styleGuide } from "./styles/style-guide";
 
@@ -36,9 +36,16 @@ const Theme = ({ state }) => {
   const RefToFixedPos = useRef(null);
   const RefToPerspectiveCtr = useRef(null);
   const RefToThumb = useRef(null);
+  const RefToHeadContainer = useRef(null);
+  const RefToHeadBackground = useRef(null);
+  const RefToMainComponent = useRef(null);
 
   useEffect(() => {
-    setRootHeight()
+    setHeights({
+      headContainer: RefToHeadContainer.current,
+      headBackground: RefToHeadBackground.current,
+      mainContainer: RefToMainComponent.current,
+    });
     let isHiddenCurrentRoute = currentRoute === "/hidden/";
     let areAllComponentsMounted =
       !RefToScrollable.current ||
@@ -83,14 +90,14 @@ const Theme = ({ state }) => {
       <FixedPos ref={RefToFixedPos}></FixedPos>
 
       {/* Add the header of the site. */}
-      <HeadContainer>
+      <HeadContainer ref={RefToHeadContainer}>
         <Header />
-        <HeadBackground colorTheme={state.theme.colorTheme} />
+        <HeadBackground ref={RefToHeadBackground} colorTheme={state.theme.colorTheme} />
       </HeadContainer>
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
-      <Main colorTheme={state.theme.colorTheme}>
+      <Main colorTheme={state.theme.colorTheme} ref={RefToMainComponent}>
         <Switch>
           <Loading when={data.isFetching} />
           <PasswordProtected
@@ -98,10 +105,7 @@ const Theme = ({ state }) => {
           >
             Enter password
           </PasswordProtected>
-          <Scrollable
-            when={data.isArchive}
-            ref={RefToScrollable}
-          >
+          <Scrollable when={data.isArchive} ref={RefToScrollable}>
             <PerspectiveCtr ref={RefToPerspectiveCtr}>
               <Thumb ref={RefToThumb} />
               <Track />
@@ -120,13 +124,12 @@ export default connect(Theme);
 
 const HeadContainer = styled.div`
   ${styleGuide.grid12Col()}
-  align-items: center;
+  align-items: end;
   position: sticky;
   top: 0;
   left: 0;
   width: 98vw;
   padding: 0.75rem 2vw 0.75rem 0vw;
-  height: 15vh;
   z-index: 2;
 `;
 
@@ -137,7 +140,6 @@ const HeadBackground = styled.div(
   left: 0;
   right: 0;
   width: 100vw;
-  height: 15vh;
   z-index: -1;
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   box-shadow: 0px 0px 15px rgba(0,0,0,.2);
@@ -148,7 +150,7 @@ const Main = styled.div(
   (props) => `
   background-color: ${styleGuide.colorScheme[props.colorTheme].background};
   width: 100%;
-  height: calc(100% - 15vh);
+  // height: calc(100% - 15vh);
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;

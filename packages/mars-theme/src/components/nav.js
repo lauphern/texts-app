@@ -53,8 +53,11 @@ const NavItem = styled.div(props => `
 
   & > a {
     display: inline-block;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid transparent;
+
     &[aria-current="page"] {
-      border-bottom: 1px solid ${styleGuide.colorScheme[props.colorTheme].text};
+      border-bottom-color: ${styleGuide.colorScheme[props.colorTheme].text};
     }
   }
 `);

@@ -1,12 +1,20 @@
-export const setRootHeight = function() {
+export const setHeights = function ({ headContainer, headBackground, mainContainer }) {
   //We need to set the height of the root element to 100% for every route, otherwise you cannot scroll
   document.querySelector("#root").style.height = "100%";
-}
+  //Set the height of the main component and headBackground, based on the headerContainer's height (it doesn't have a fixed height)
+  const checkHeadHeight = function () {
+    let headContainerHeight = headContainer.getBoundingClientRect().height;
+    headBackground.style.height = `${headContainerHeight}px`;
+    mainContainer.style.height = `calc(100vh - ${headContainerHeight}px)`;
+  };
+  checkHeadHeight()
+  window.addEventListener("resize", checkHeadHeight);
+};
 
 export const scrollbarInit = function ({
   scrollableComponent,
   perspectiveCtr,
-  thumb
+  thumb,
 }) {
   // Scrollbar functionality following (and adapting) this example:
   // https://developers.google.com/web/updates/2017/03/custom-scrollbar
@@ -14,7 +22,7 @@ export const scrollbarInit = function ({
 
   let dragging = false;
   let lastY = 0;
-  
+
   function dragStart(event) {
     dragging = true;
     this.style.pointerEvents = "none";

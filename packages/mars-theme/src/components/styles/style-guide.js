@@ -36,7 +36,7 @@ export const styleGuide = {
       fontWeight: 300,
     },
     navItem: {
-      fontSize: "1.5rem",
+      fontSize: "1rem",
       fontWeight: 300,
     },
   },
