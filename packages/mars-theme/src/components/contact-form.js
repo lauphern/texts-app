@@ -73,6 +73,8 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
+  margin-top: 1.25rem;
+   
   & span {
     font-size: 0.7em;
   }
